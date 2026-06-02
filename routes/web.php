@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 /*Ruta para la vista de inicio de laravel*/
 Route::get('/', function () {
-    return view('frontend.welcome');
+    return view('welcome');
 });
 
 /*Ruta para las vistas ('principal'.'quienes-somos','comercializacion','contactos','terminos-y-usos','consultas')*/
@@ -13,10 +13,25 @@ Route::get('/principal', function () {
 return view('frontend.principal');
 });
 
+Route::get('/quienes-somos', function () {
+    return view('frontend.quienes-somos');
+});
+
 Route::get('/comercializacion', function () {
 return view('frontend.comercializacion');
 });
 
+Route::get('/contactos', function () {
+    return view('frontend.contactos');
+});
+
+Route::get('/terminos-y-usos', function () {
+    return view('frontend.terminos-y-usos');
+});
+
+Route::get('/consultas', function () {
+    return view('frontend.consultas');
+});
 
 /*Ruta para la vista de los catálogos 'hombres' 'mujeres' */
 Route::get('/hombres/{categoria?}', function ($categoria = null) {
