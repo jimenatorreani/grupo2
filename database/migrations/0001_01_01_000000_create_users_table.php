@@ -15,10 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable(); // guarda la fecha y hora en que el usuario verificó su email. ej: Laravel puede enviar un mail tipo:Hacé click para verificar tu cuenta”.
+            $table->string('password'); // siempre hasheada, nunca en texto plano
+            $table->rememberToken(); // token para "Recordarme" (o sea para guardar usuario y contraseña)
+            
+            $table->foreignId('rol_id')
+            ->nullable()
+            ->constrained('roles')
+            ->restrictOnDelete();
+
             $table->timestamps();
+            $table->softDeletes(); //borrado logico
+
+            
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -42,8 +51,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
