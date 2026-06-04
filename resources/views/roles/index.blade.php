@@ -17,6 +17,16 @@
         {{ $rol->descripcion }}
     </p>
 
+    {{-- Link para crear --}}
+    <a href="{{ route('roles.create') }}">
+        Crear Rol
+    </a>
+
+    {{-- Link para ver --}}
+    <a href="{{ route('roles.show', $rol->id) }}">
+        Ver
+    </a>
+
     {{-- Link para editar --}}
     <a href="{{ route('roles.edit', $rol->id) }}">
         Editar

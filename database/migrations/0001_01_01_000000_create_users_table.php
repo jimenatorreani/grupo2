@@ -20,7 +20,6 @@ return new class extends Migration
             $table->rememberToken(); // token para "Recordarme" (o sea para guardar usuario y contraseña)
             
             $table->foreignId('rol_id')
-            ->nullable()
             ->constrained('roles')
             ->restrictOnDelete();
 

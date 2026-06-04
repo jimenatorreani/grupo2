@@ -58,33 +58,29 @@ class RolController
 
     
     //Mostrar el recurso especificado.
-    public function show(string $id)
+    public function show(Rol $rol)
     {
-        //
+        return view('roles.show', compact('rol'));
     }
 
     //Muestra el formulario para editar el recurso especificado.
-    public function edit(string $id)
+    public function edit(Rol $rol)
     {
-        $rol = Rol::findOrFail($id); //findOrFail Busca un rol por ID. ej: /roles/1/edit
-
         return view('roles.edit', compact('rol'));
     }
 
 
     //Actualiza el recurso especificado en el almacenamiento.
-    public function update(Request $request, string $id)
+    public function update(Request $request, Rol $rol)
     {
-        $request->validate([
-        'nombre' => 'required|string|max:50|unique:roles,nombre,' . $id, //El nombre debe ser único… EXCEPTO el rol actual, ej:si es 'admin' no podes volver a poner admi en el campo nombre
+         $request->validate([
+        'nombre' => 'required|string|max:50|unique:roles,nombre,' . $rol->id,
         'descripcion' => 'nullable|string|max:255',
-    ]);
+        ]);
 
-    $rol = Rol::findOrFail($id);
+        $rol->update($request->only(['nombre', 'descripcion'])); //Actualiza datos.
 
-    $rol->update($request->only(['nombre', 'descripcion'])); //Actualiza datos.
-
-    return redirect()->route('roles.index')
+        return redirect()->route('roles.index')
                      ->with('exito', 'Rol actualizado.'); //mensaje flash.
     }
 
