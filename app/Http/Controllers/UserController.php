@@ -19,7 +19,7 @@ class UserController
     public function index()
     {
         $usuarios = User::with('rol')->get(); //with('rol') le dice a Laravel: “Además de traer usuarios, traé también sus roles relacionados”.
-        return view('usuarios.index', compact('usuarios'));
+        return view('backend.usuarios.index', compact('usuarios'));
     }
 
     
@@ -32,7 +32,7 @@ class UserController
                             //Poruqe al crear un usuario necesitas elegir en un <select> : 'admin' O 'cliente'  
         
                             
-        return view('usuarios.create', compact('roles'));  //redirige a la vista del formulario create              
+        return view('backend.usuarios.create', compact('roles'));  //redirige a la vista del formulario create              
 
     }
 
@@ -61,7 +61,7 @@ class UserController
     //Sirve para ver UN usuario en detalle. No es listado, es un perfil INDIVIDUAL
     public function show(User $usuario)
     {
-        return view('usuarios.show', compact('usuario'));
+        return view('backend.usuarios.show', compact('usuario'));
     }
 
     
@@ -71,7 +71,7 @@ class UserController
     {
         $roles = Rol::all(); //Trae todos los roles para el <select>.
 
-        return view('usuarios.edit', compact('usuario', 'roles')); //redireciona a la vista del formulario edit
+        return view('backend.usuarios.edit', compact('usuario', 'roles')); //redireciona a la vista del formulario edit
                                                                     //compact('usuario', 'roles') envía ambas variables a Blade.
     }
 
@@ -113,7 +113,7 @@ class UserController
     {
         $usuarios = User::onlyTrashed()->get();
 
-        return view('usuarios.deleted', compact('usuarios'));
+        return view('backend.usuarios.deleted', compact('usuarios'));
     }
 
 

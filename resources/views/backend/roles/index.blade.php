@@ -21,17 +21,17 @@
     <a href="{{ route('roles.create') }}">
         Crear Rol
     </a>
-
+    <br><br>
     {{-- Link para ver --}}
     <a href="{{ route('roles.show', $rol->id) }}">
         Ver
     </a>
-
+    <br><br>
     {{-- Link para editar --}}
     <a href="{{ route('roles.edit', $rol->id) }}">
         Editar
     </a>
-
+    <br><br>
     {{-- Link para eliminar --}}
     <form action="{{ route('roles.destroy', $rol->id) }}" method="POST">
 

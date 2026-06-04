@@ -1,8 +1,9 @@
+
 {{-- Formulario o vista que permite editar un registro guardado en la tabla rol --}}
 
 <h1>Editar Rol</h1>
 
-<form action="{{ route('roles.update', $rol->id) }}" method="POST">
+<form action="{{ route('roles.update', ['role' => $rol->id]) }}" method="POST">
 
     @csrf
     @method('PUT')

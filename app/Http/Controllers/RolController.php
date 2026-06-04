@@ -20,7 +20,7 @@ class RolController
         $roles = Rol::all(); //usa Eloquent para traer TODOS los registros de la tabla roles.
 
          //Esto ya no devuelve JSON/texto.
-        return view('roles.index', compact('roles')); 
+        return view('backend.roles.index', compact('roles')); 
                                                      //Ahora los datos se muestran en HTML mediante Blade.
                                                      //ya entra al flujo real MVC.
 
@@ -30,7 +30,7 @@ class RolController
     //Cuando entramos a la ruta de crear roles, muestra la vista "roles/formulario-create.blade.php”.
     public function create()
     {
-        return view('roles.create');
+        return view('backend.roles.create');
 
     }
 
@@ -58,27 +58,27 @@ class RolController
 
     
     //Mostrar el recurso especificado.
-    public function show(Rol $rol)
+    public function show(Rol $role)
     {
-        return view('roles.show', compact('rol'));
+         return view('backend.roles.show', ['rol' => $role]);
     }
 
     //Muestra el formulario para editar el recurso especificado.
-    public function edit(Rol $rol)
-    {
-        return view('roles.edit', compact('rol'));
-    }
+public function edit(Rol $role)
+{
+    return view('backend.roles.edit', ['rol' => $role]);
+}
 
 
     //Actualiza el recurso especificado en el almacenamiento.
-    public function update(Request $request, Rol $rol)
+    public function update(Request $request, Rol $role)
     {
          $request->validate([
-        'nombre' => 'required|string|max:50|unique:roles,nombre,' . $rol->id,
+        'nombre' => 'required|string|max:50|unique:roles,nombre,' . $role->id,
         'descripcion' => 'nullable|string|max:255',
         ]);
 
-        $rol->update($request->only(['nombre', 'descripcion'])); //Actualiza datos.
+        $role->update($request->only(['nombre', 'descripcion'])); //Actualiza datos.
 
         return redirect()->route('roles.index')
                      ->with('exito', 'Rol actualizado.'); //mensaje flash.

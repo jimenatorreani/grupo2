@@ -15,14 +15,19 @@
 
     <p>Rol: {{ $usuario->rol->nombre }}</p>
 
+    {{-- Link para crear --}}
+    <a href="{{ route('usuarios.create') }}">
+        Crear Usuario
+    </a>
+    <br><br>
     <a href="{{ route('usuarios.show', $usuario->id) }}">
         Ver {{-- Ver en detalle los datos de un registro de un usuario--}}
     </a>
-
+    <br><br>
     <a href="{{ route('usuarios.edit', $usuario->id) }}">
         Editar {{-- Editar los datos de un registro de un usuario--}}
     </a>
-
+    <br><br>
     <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST">
 
     @csrf
@@ -33,7 +38,7 @@
     </button>
 
     </form>
-
+    <br><br>
     <a href="{{ route('usuarios.deleted') }}">
         Ver usuarios eliminados 
     </a>
