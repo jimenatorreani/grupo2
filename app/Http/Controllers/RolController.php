@@ -64,10 +64,10 @@ class RolController
     }
 
     //Muestra el formulario para editar el recurso especificado.
-public function edit(Rol $role)
-{
-    return view('backend.roles.edit', ['rol' => $role]);
-}
+    public function edit(Rol $role)
+    {
+        return view('backend.roles.edit', ['rol' => $role]);
+    }
 
 
     //Actualiza el recurso especificado en el almacenamiento.
@@ -88,9 +88,9 @@ public function edit(Rol $role)
     //Elimine el recurso especificado del almacenamiento.
     //eliminación lógica (SoftDeletes)
     //El rol desaparece del listado pero no se borra fisicamente de la DB.
-    public function destroy(Rol $rol)
+    public function destroy(Rol $role)
     {
-        $rol->delete(); // SoftDelete: setea deleted_at, no borra la fila
+        $role->delete(); // SoftDelete: setea deleted_at, no borra la fila
         return redirect()->route('roles.index')->with('exito', 'Rol eliminado.');
     }
 }

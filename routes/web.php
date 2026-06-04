@@ -58,10 +58,23 @@ Route::get('/quienes-somos', function () {
 Route::post('/contacto', [ContactoController::class, 'procesar']);*/
 
 
-/*Rutas para el Backend*/ 
+//Rutas para el Backend 
 
-/*Ruta Controlador RolController*/ 
+/*
+El Route Model Binding es el mecanismo que toma el ID de la URL (/roles/3/edit) 
+y automáticamente busca el registro correspondiente en la base de datos.
+*/
+
+//Ruta Controlador RolController
 Route::resource('roles', RolController::class); //Laravel crea automáticamente todas las rutas CRUD de roles.
+                                                //Laravel tmb genera automaticamente esta ruta: roles/{role}/edit
+
+/*
+Route::resource('roles', RolController::class)
+     ->parameters([          personalizamos el nombre de la ruta p/q laravel no genere automaticamente {'role'}
+         'roles' => 'rol'   el nombre del parametro de la ruta debe coincidir con el nombre de los parámetros de los métodos. {'rol'}
+     ]);
+*/
 
 /*Ruta Controlador UserController*/ 
 Route::resource('usuarios', UserController::class); //Laravel crea automáticamente todas las rutas CRUD de usuarios.
