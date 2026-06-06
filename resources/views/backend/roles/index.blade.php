@@ -1,49 +1,71 @@
-{{-- Muestra la lista de roles que existe en la base de datos --}}
-<h1>Lista de Roles</h1>
+@extends('layouts.plantilla-base')
 
-{{-- Mensaje flash --}}
-@if(session('exito'))
-    <p>{{ session('exito') }}</p>
+@section('titulo', 'Roles')
+
+@section('content')
+
+<h1 class="mb-4">Lista de Roles</h1>
+
+@if(session('exito')) <div class="alert alert-success">
+{{ session('exito') }} </div>
 @endif
 
-{{-- Recorre todos los roles --}}
-@foreach($roles as $rol)
-
-    <p>
-        {{ $rol->nombre }}
-    </p>
-
-    <p>
-        {{ $rol->descripcion }}
-    </p>
-
-    {{-- Link para crear --}}
-    <a href="{{ route('roles.create') }}">
+<div class="mb-3">
+    <a href="{{ route('roles.create') }}" class="btn btn-primary">
         Crear Rol
     </a>
-    <br><br>
-    {{-- Link para ver --}}
-    <a href="{{ route('roles.show', $rol->id) }}">
-        Ver
-    </a>
-    <br><br>
-    {{-- Link para editar --}}
-    <a href="{{ route('roles.edit', $rol->id) }}">
-        Editar
-    </a>
-    <br><br>
-    {{-- Link para eliminar --}}
-    <form action="{{ route('roles.destroy', $rol->id) }}" method="POST">
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th width="250">Acciones</th>
+        </tr>
+    </thead>
 
-        @csrf
-        @method('DELETE')
 
-        <button type="submit">
-            Eliminar
-        </button>
+<tbody>
+    @forelse($roles as $rol)
+        <tr>
+            <td>{{ $rol->nombre }}</td>
+            <td>{{ $rol->descripcion }}</td>
 
-    </form>
+            <td>
+                <a href="{{ route('roles.show', $rol->id) }}"
+                   class="btn btn-info btn-sm">
+                    Ver
+                </a>
 
-    <hr>
+                <a href="{{ route('roles.edit', $rol->id) }}"
+                   class="btn btn-warning btn-sm">
+                    Editar
+                </a>
 
-@endforeach
+                <form action="{{ route('roles.destroy', $rol->id) }}"
+                      method="POST"
+                      style="display:inline;">
+
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Eliminar este rol?')">
+                        Eliminar
+                    </button>
+
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="3">
+                No hay roles registrados.
+            </td>
+        </tr>
+    @endforelse
+</tbody>
+</table>
+
+@endsection

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 /*use App\Http\Controllers\ContactoController;*/
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoriaController;
+
 
 /*Ruta para la vista de inicio de laravel*/
 Route::get('/', function () {
@@ -80,8 +82,20 @@ Route::resource('roles', RolController::class)
 Route::resource('usuarios', UserController::class); //Laravel crea automáticamente todas las rutas CRUD de usuarios.
 
 /* Ruta para ver usuarios eliminados y reestaurarlos si se quiere */
-Route::put('/usuarios/{id}/restore', [UserController::class, 'restore'])
+Route::patch('/usuarios/{id}/restore', [UserController::class, 'restore'])
      ->name('usuarios.restore');
 
 Route::get('/usuarios-eliminados', [UserController::class, 'deleted'])
      ->name('usuarios.deleted');
+
+//Rutas controlador CategoriaController
+Route::resource('categorias', CategoriaController::class); 
+Route::get(
+    'categorias-eliminadas',
+    [CategoriaController::class, 'deleted']
+)->name('categorias.deleted');
+
+Route::patch(
+    'categorias/{id}/restore',
+    [CategoriaController::class, 'restore']
+)->name('categorias.restore');    

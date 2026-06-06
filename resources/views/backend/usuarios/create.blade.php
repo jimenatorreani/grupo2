@@ -1,49 +1,114 @@
-<h1>Crear Usuario</h1>
+@extends('layouts.plantilla-base')
 
-{{-- Formulario Create: crea un registro de usuario --}}
+@section('titulo', 'Nuevo Usuario')
+
+@section('content')
+<br>
+<h1 class="mb-4">Nuevo Usuario</h1>
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <form action="{{ route('usuarios.store') }}" method="POST">
 
     @csrf
 
-    <label>Nombre:</label>
-    <input type="text" name="name">
+    <div class="mb-3">
+        <label for="name" class="form-label">
+            Nombre
+        </label>
 
-    <br><br>
+        <input type="text"
+               name="name"
+               id="name"
+               class="form-control"
+               value="{{ old('name') }}"
+               required>
+    </div>
 
-    <label>Email:</label>
-    <input type="email" name="email">
+    <div class="mb-3">
+        <label for="email" class="form-label">
+            Email
+        </label>
 
-    <br><br>
+        <input type="email"
+               name="email"
+               id="email"
+               class="form-control"
+               value="{{ old('email') }}"
+               required>
+    </div>
 
-    <label>Password:</label>
-    <input type="password" name="password">
+    <div class="mb-3">
+        <label for="password" class="form-label">
+            Contraseña
+        </label>
 
-    <br><br>
+        <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            required
+    >
+    </div>
 
-    <label>Confirmar Password:</label>
-    <input type="password" name="password_confirmation">
+    <div class="mb-3">
+        <label for="password_confirmation" class="form-label">
+            Confirmar Contraseña
+        </label>
 
-    <br><br>
+        <input
+            type="password"
+            name="password_confirmation"
+            id="password_confirmation"
+            class="form-control"
+            required
+        >
+    </div>
 
-    <label>Rol:</label>
+    <div class="mb-3">
+        <label for="rol_id" class="form-label">
+            Rol
+        </label>
 
-    <select name="rol_id"> {{-- name="rol_id" hace que viaje: $request->rol_id --}}
+        <select name="rol_id"
+                id="rol_id"
+                class="form-select"
+                required>
 
-        @foreach($roles as $rol)
-
-            <option value="{{ $rol->id }}"> {{-- option value="" guarda el id del rol --}}
-                {{ $rol->nombre }}
+            <option value="">
+                Seleccione un rol
             </option>
 
-        @endforeach
+            @foreach($roles as $rol)
 
-    </select>
+                <option value="{{ $rol->id }}">
+                    {{ $rol->nombre }}
+                </option>
 
-    <br><br>
+            @endforeach
 
-    <button type="submit">
+        </select>
+    </div>
+
+    <button type="submit"
+            class="btn btn-success">
         Guardar
     </button>
 
+    <a href="{{ route('usuarios.index') }}"
+       class="btn btn-secondary">
+        Cancelar
+    </a>
+<br><br><br>
 </form>
+
+@endsection

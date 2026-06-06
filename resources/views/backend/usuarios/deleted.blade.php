@@ -1,16 +1,79 @@
-<h1>Usuarios eliminados</h1>
+@extends('layouts.plantilla-base')
 
-@foreach($usuarios as $usuario)
+@section('titulo', 'Usuarios Eliminados')
 
-    <p>{{ $usuario->name }}</p>
+@section('content')
+<br>
+<h1 class="mb-4">Usuarios Eliminados</h1>
 
-    <form action="{{ route('usuarios.restore', $usuario->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+@if(session('exito'))
+    <div class="alert alert-success">
+        {{ session('exito') }}
+    </div>
+@endif
 
-        <button type="submit">Restaurar</button>
-    </form>
+<a href="{{ route('usuarios.index') }}"
+   class="btn btn-secondary mb-3">
+    Volver
+</a>
 
-    <hr>
+<table class="table table-bordered table-striped">
 
-@endforeach
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @forelse($usuarios as $usuario)
+
+        <tr>
+
+            <td>{{ $usuario->id }}</td>
+
+            <td>{{ $usuario->name }}</td>
+
+            <td>{{ $usuario->email }}</td>
+
+            <td>{{ $usuario->rol->nombre }}</td>
+
+            <td>
+
+                <form action="{{ route('usuarios.restore', $usuario->id) }}"
+                      method="POST">
+
+                    @csrf
+                    @method('PATCH')
+
+                    <button type="submit"
+                            class="btn btn-success btn-sm">
+                        Restaurar
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+    @empty
+
+        <tr>
+            <td colspan="5">
+                No hay usuarios eliminados.
+            </td>
+        </tr>
+
+    @endforelse
+
+    </tbody>
+
+</table>
+<br><br><br>
+@endsection

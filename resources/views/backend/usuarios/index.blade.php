@@ -1,48 +1,102 @@
-<h1>Lista de Usuarios</h1>
+@extends('layouts.plantilla-base')
 
-{{-- Mensaje flash 'usuarios creado con exitos, actualizado, eliminado, etc --}}
-@if(session('exito'))
-    <p>{{ session('exito') }}</p>
+@section('titulo', 'Usuarios')
+
+@section('content')
+
+<br>
+
+<h1 class="mb-4">Lista de Usuarios</h1>
+
+@if(session('exito')) <div class="alert alert-success">
+{{ session('exito') }} </div>
 @endif
 
-{{-- Lista los usuarios con sus roles asignados que estan registrados en la base de datos --}}
+<div class="mb-3">
 
-@foreach($usuarios as $usuario)
+<a href="{{ route('usuarios.create') }}"
+   class="btn btn-primary">
+    Crear Usuario
+</a>
 
-    <p>Nombre: {{ $usuario->name }}</p>
+<a href="{{ route('usuarios.deleted') }}"
+   class="btn btn-dark">
+    Ver Usuarios Eliminados
+</a>
 
-    <p>Email: {{ $usuario->email }}</p>
+</div>
 
-    <p>Rol: {{ $usuario->rol->nombre }}</p>
+<table class="table table-bordered table-striped">
 
-    {{-- Link para crear --}}
-    <a href="{{ route('usuarios.create') }}">
-        Crear Usuario
-    </a>
-    <br><br>
-    <a href="{{ route('usuarios.show', $usuario->id) }}">
-        Ver {{-- Ver en detalle los datos de un registro de un usuario--}}
-    </a>
-    <br><br>
-    <a href="{{ route('usuarios.edit', $usuario->id) }}">
-        Editar {{-- Editar los datos de un registro de un usuario--}}
-    </a>
-    <br><br>
-    <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST">
+<thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th width="260">Acciones</th>
+    </tr>
+</thead>
 
-    @csrf
-    @method('DELETE')
+<tbody>
 
-    <button type="submit">
-        Eliminar {{-- Eliminar  un registro de un usuario--}}
-    </button>
+@forelse($usuarios as $usuario)
 
-    </form>
-    <br><br>
-    <a href="{{ route('usuarios.deleted') }}">
-        Ver usuarios eliminados 
-    </a>
+    <tr>
 
-    <hr>
+        <td>{{ $usuario->id }}</td>
 
-@endforeach
+        <td>{{ $usuario->name }}</td>
+
+        <td>{{ $usuario->email }}</td>
+
+        <td>{{ $usuario->rol->nombre }}</td>
+
+        <td>
+
+            <a href="{{ route('usuarios.show', $usuario->id) }}"
+               class="btn btn-info btn-sm">
+                Ver
+            </a>
+
+            <a href="{{ route('usuarios.edit', $usuario->id) }}"
+               class="btn btn-warning btn-sm">
+                Editar
+            </a>
+
+            <form action="{{ route('usuarios.destroy', $usuario->id) }}"
+                  method="POST"
+                  style="display:inline;">
+
+                @csrf
+                @method('DELETE')
+
+                <button type="submit"
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('¿Eliminar este usuario?')">
+                    Eliminar
+                </button>
+
+            </form>
+
+        </td>
+
+    </tr>
+
+@empty
+
+    <tr>
+        <td colspan="5">
+            No hay usuarios registrados.
+        </td>
+    </tr>
+
+@endforelse
+
+</tbody>
+
+</table>
+
+<br><br>
+
+@endsection
