@@ -93,4 +93,24 @@ class RolController
         $role->delete(); // SoftDelete: setea deleted_at, no borra la fila
         return redirect()->route('roles.index')->with('exito', 'Rol eliminado.');
     }
+
+    //Metodo para ver roles eliminadas
+    public function deleted()
+    {
+        $roles = Rol::onlyTrashed()->get();
+
+        return view('backend.roles.deleted', compact('roles'));
+    }
+
+    //método para restaurar roles eliminados
+    public function restore(int $id)
+    {
+        $role = Rol::withTrashed()->findOrFail($id);
+
+        $role->restore();
+
+        return redirect()
+            ->route('roles.index')
+            ->with('exito', 'Rol restaurado correctamente.');
+    }
 }

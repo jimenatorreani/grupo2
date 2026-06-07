@@ -1,25 +1,71 @@
+@extends('layouts.plantilla-base')
 
-{{-- Formulario o vista que permite editar un registro guardado en la tabla rol --}}
+@section('titulo', 'Editar Rol')
+
+@section('content')
 
 <h1>Editar Rol</h1>
 
-<form action="{{ route('roles.update', ['role' => $rol->id]) }}" method="POST">
+@if ($errors->any())
+
+    <div class="alert alert-danger">
+
+        <ul>
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
+
+<form action="{{ route('roles.update', $rol->id) }}"
+      method="POST">
 
     @csrf
     @method('PUT')
 
-    <label>Nombre:</label>
-    <input type="text" name="nombre" value="{{ $rol->nombre }}">
+    <div class="mb-3">
 
-    <br><br>
+        <label class="form-label">
+            Nombre
+        </label>
 
-    <label>Descripción:</label>
-    <input type="text" name="descripcion" value="{{ $rol->descripcion }}">
+        <input type="text"
+               name="nombre"
+               class="form-control"
+               value="{{ old('nombre', $rol->nombre) }}"
+               required>
 
-    <br><br>
+    </div>
 
-    <button type="submit">
+    <div class="mb-3">
+
+        <label class="form-label">
+            Descripción
+        </label>
+
+        <textarea name="descripcion"
+                  class="form-control"
+                  rows="3">{{ old('descripcion', $rol->descripcion) }}</textarea>
+
+    </div>
+
+    <button type="submit"
+            class="btn btn-success">
         Actualizar
     </button>
 
+    <a href="{{ route('roles.index') }}"
+       class="btn btn-secondary">
+        Volver
+    </a>
+
 </form>
+<br><br>
+@endsection

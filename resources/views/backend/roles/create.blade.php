@@ -1,31 +1,70 @@
-{{-- Formulario o vista que permite crear un rol --}}
+@extends('layouts.plantilla-base')
+
+@section('titulo', 'Crear Rol')
+
+@section('content')
+
 <h1>Crear Rol</h1>
 
-<form action="{{ route('roles.store') }}" method="POST">
+@if ($errors->any())
+
+    <div class="alert alert-danger">
+
+        <ul>
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
+
+<form action="{{ route('roles.store') }}"
+      method="POST">
 
     @csrf
 
-    <label>Nombre del rol:</label>
-    <input type="text" name="nombre">
+    <div class="mb-3">
 
-    <br><br>
+        <label class="form-label">
+            Nombre
+        </label>
 
-    <label>Descripción:</label>
-    <input type="text" name="descripcion">
+        <input type="text"
+               name="nombre"
+               class="form-control"
+               value="{{ old('nombre') }}"
+               required>
 
-    <br><br>
+    </div>
 
-    <button type="submit">
+    <div class="mb-3">
+
+        <label class="form-label">
+            Descripción
+        </label>
+
+        <textarea name="descripcion"
+                  class="form-control"
+                  rows="3">{{ old('descripcion') }}</textarea>
+
+    </div>
+
+    <button type="submit"
+            class="btn btn-success">
         Guardar
     </button>
 
+    <a href="{{ route('roles.index') }}"
+       class="btn btn-secondary">
+        Volver
+    </a>
+
 </form>
-
-{{-- 
-
-    {{ route('roles.store') }} : ENVÍA EL FORMULARIO A LA RUTA /roles con el método post 
-    @csrf : Laravel exige token de seguridad en formularios. SIN eso → error 419.
-    name="nombre" : El dato viajará como: $request->nombre
-    name="descripcion" : El dato viajará como: $request->descripcion
-
---}}
+<br><br>
+@endsection

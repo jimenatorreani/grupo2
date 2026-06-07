@@ -1,11 +1,10 @@
 @extends('layouts.plantilla-base')
 
-@section('titulo', 'Roles')
+@section('titulo', 'Productos')
 
 @section('content')
 <br>
-
-<h1 class="mb-4">Lista de Roles</h1>
+<h1 class="mb-4">Lista de Productos</h1>
 
 @if(session('exito'))
     <div class="alert alert-success">
@@ -14,17 +13,15 @@
 @endif
 
 <div class="mb-3">
-
-    <a href="{{ route('roles.create') }}"
+    <a href="{{ route('productos.create') }}"
        class="btn btn-primary">
-        Crear Rol
+        Crear Producto
     </a>
 
-    <a href="{{ route('roles.deleted') }}"
+    <a href="{{ route('productos.deleted') }}"
        class="btn btn-dark">
         Ver Eliminados
     </a>
-
 </div>
 
 <table class="table table-bordered table-striped">
@@ -33,36 +30,47 @@
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Estado</th>
             <th>Acciones</th>
         </tr>
     </thead>
 
     <tbody>
 
-    @forelse($roles as $rol)
+    @forelse($productos as $producto)
 
         <tr>
 
-            <td>{{ $rol->id }}</td>
+            <td>{{ $producto->id }}</td>
 
-            <td>{{ $rol->nombre }}</td>
+            <td>{{ $producto->nombre }}</td>
 
-            <td>{{ $rol->descripcion }}</td>
+            <td>{{ $producto->categoria->descripcion }}</td>
+
+            <td>${{ $producto->precio }}</td>
+
+            <td>{{ $producto->stock }}</td>
+
+            <td>
+                {{ $producto->activo ? 'Activo' : 'Inactivo' }}
+            </td>
 
             <td>
 
-                <a href="{{ route('roles.show', $rol->id) }}"
+                <a href="{{ route('productos.show', $producto->id) }}"
                    class="btn btn-info btn-sm">
                     Ver
                 </a>
 
-                <a href="{{ route('roles.edit', $rol->id) }}"
+                <a href="{{ route('productos.edit', $producto->id) }}"
                    class="btn btn-warning btn-sm">
                     Editar
                 </a>
 
-                <form action="{{ route('roles.destroy', $rol->id) }}"
+                <form action="{{ route('productos.destroy', $producto->id) }}"
                       method="POST"
                       style="display:inline;">
 
@@ -71,7 +79,7 @@
 
                     <button type="submit"
                             class="btn btn-danger btn-sm"
-                            onclick="return confirm('¿Eliminar este rol?')">
+                            onclick="return confirm('¿Eliminar producto?')">
                         Eliminar
                     </button>
 
@@ -84,8 +92,8 @@
     @empty
 
         <tr>
-            <td colspan="4">
-                No hay roles registrados.
+            <td colspan="7">
+                No hay productos registrados.
             </td>
         </tr>
 
@@ -94,7 +102,5 @@
     </tbody>
 
 </table>
-
 <br><br>
-
 @endsection

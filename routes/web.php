@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
 
 
 /*Ruta para la vista de inicio de laravel*/
@@ -68,6 +69,15 @@ y automáticamente busca el registro correspondiente en la base de datos.
 */
 
 //Ruta Controlador RolController
+
+//ver roles eliminados
+Route::get('/roles-eliminados', [RolController::class, 'deleted'])
+    ->name('roles.deleted');
+
+//restaurar roles eliminados
+Route::patch('/roles/{id}/restore', [RolController::class, 'restore'])
+    ->name('roles.restore');
+
 Route::resource('roles', RolController::class); //Laravel crea automáticamente todas las rutas CRUD de roles.
                                                 //Laravel tmb genera automaticamente esta ruta: roles/{role}/edit
 
@@ -98,4 +108,16 @@ Route::get(
 Route::patch(
     'categorias/{id}/restore',
     [CategoriaController::class, 'restore']
-)->name('categorias.restore');    
+)->name('categorias.restore');
+
+//Rutas controlador ProductoController.
+
+//ver productos eliminados
+Route::get('productos-eliminados', [ProductoController::class, 'deleted'])
+    ->name('productos.deleted');
+
+//restaurar productos eliminados
+Route::patch('productos/{id}/restore', [ProductoController::class, 'restore'])
+    ->name('productos.restore');
+
+Route::resource('productos', ProductoController::class);
