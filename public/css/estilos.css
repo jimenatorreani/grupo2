@@ -168,6 +168,17 @@ body {
     padding-bottom: 6px;
     margin-bottom: 12px;
 }
+/* Botón 'Registrarme' */
+.btn-sport {
+    background-color: #1f252b;
+    color: white;
+    border: none;
+}
+
+.btn-sport:hover {
+    background-color: #dc3545;
+    color: white;
+}
 
 /*galeria de imagenes con css (prueba)*/
 

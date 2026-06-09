@@ -6,6 +6,9 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClienteController;
 
 
 /*Ruta para la vista de inicio de laravel*/
@@ -121,3 +124,31 @@ Route::patch('productos/{id}/restore', [ProductoController::class, 'restore'])
     ->name('productos.restore');
 
 Route::resource('productos', ProductoController::class);
+
+//Rutas AuthController:
+Route::get('/registro', [AuthController::class, 'formularioRegistro'])
+    ->name('registro.form');
+
+Route::post('/registro', [AuthController::class, 'registrar'])
+    ->name('registro');
+
+Route::get('/login', [AuthController::class, 'formularioLogin'])
+    ->name('login.form');
+
+Route::post('/login', [AuthController::class, 'autenticar'])
+    ->name('login');
+
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
+//Rutas para el controlador AdminController:
+// Dashboard administrador
+Route::get('/admin', [AdminController::class, 'dashboard'])
+    ->middleware('admin')
+    ->name('admin.dashboard');
+
+//Rutas para el controlador ClienteController:
+// Dashboard cliente
+Route::get('/cliente', [ClienteController::class, 'dashboard'])
+    ->middleware('cliente')
+    ->name('cliente.dashboard');
