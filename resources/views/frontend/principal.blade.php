@@ -84,39 +84,7 @@
 
 </div>
 
-{{-- mi-galeria1 
-<div class="container-fluid">
-    <h4 class="mb-5 titulosmigaleria">Entrená con estilo</h4>
 
-    <div class="row mi-galeria1 g-4">
-
-        <div class="col-md-3">
-            <div class="img-container">
-            <img src="{{ asset('img/banners/entrena-con-estilo/entrenar1.jpg') }}" >
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="img-container">
-            <img src="{{ asset('img/banners/entrena-con-estilo/entrenar2.jpg') }}" >
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="img-container">
-            <img src="{{ asset('img/banners/entrena-con-estilo/entrenar9.jpg') }}" >
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="img-container">
-            <img src="{{ asset('img/banners/entrena-con-estilo/entrenar4.jpg') }}" >
-            </div>
-        </div>
-
-    </div>
-</div>
---}}
 <br><br>
 
 {{-- mi-galeria2--}}

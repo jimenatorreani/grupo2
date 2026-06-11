@@ -28,8 +28,9 @@
 
     <thead>
         <tr>
-            <th>ID</th>
+            <th>ID PRODUCTO</th>
             <th>Nombre</th>
+            <th>ID CATEGORÍA</th>
             <th>Categoría</th>
             <th>Precio</th>
             <th>Stock</th>
@@ -47,6 +48,8 @@
             <td>{{ $producto->id }}</td>
 
             <td>{{ $producto->nombre }}</td>
+
+            <td>{{ $producto->categoria->id }}</td>
 
             <td>{{ $producto->categoria->descripcion }}</td>
 

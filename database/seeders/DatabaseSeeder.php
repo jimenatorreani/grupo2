@@ -1,8 +1,9 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\User;
+//use Database\Seeders\CategoriaSeeder;
+//use Database\Seeders\ProductoSeeder;
+//use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
         RolesSeeder::class,
+        CategoriaSeeder::class,
+        ProductoSeeder::class,
         ]);
 
     }

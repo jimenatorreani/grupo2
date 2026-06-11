@@ -13,6 +13,43 @@
 
 </div>
 
+{{-- CATÁLOGO DE PRODUCTOS DINÁMICO --}}
+<div class="row">
+
+
+@foreach($productos as $producto)
+
+    @include('partials.card-producto', [
+        'nombre' => $producto->nombre,
+        'precio' => '$' . number_format($producto->precio, 0, ',', '.'),
+        'imagen' => $producto->url_imagen
+    ])
+
+@endforeach
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- 
+        CATÁLOGO DE PRODUCTOS ESTÁTICO 
 @if(!$categoria || $categoria == 'remeras')
 <div class="row">
     @for ($i = 1; $i <= 16; $i++)
@@ -37,5 +74,7 @@
     @endfor
 </div>
 @endif
+--}}
+
 
 @endsection

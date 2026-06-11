@@ -1,4 +1,3 @@
-
 @extends('layouts.plantilla-base')
 
 @section('content')
@@ -12,6 +11,50 @@
     <a href="/mujeres/zapatillas" class="btn btn-outline-dark mi-boton-subcategoria">Zapatillas</a>
 
 </div>
+
+{{-- CATÁLOGO DE PRODUCTOS DINÁMICO --}}
+<div class="row">
+
+
+@foreach($productos as $producto)
+
+    @include('partials.card-producto', [
+        'nombre' => $producto->nombre,
+        'precio' => '$' . number_format($producto->precio, 0, ',', '.'),
+        'imagen' => $producto->url_imagen
+    ])
+
+@endforeach
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- 
+        CATÁLOGO DE PRODUCTOS ESTÁTICO
 
 @if(!$categoria || $categoria == 'conjuntos')
 <div class="row">
@@ -37,7 +80,19 @@
 </div>
 @endif
 
-{{-- 
+@if(!$categoria || $categoria == 'zapatillas')
+<div class="row">
+    @for ($i = 1; $i <= 3; $i++)
+        @include('partials.card-producto', [
+            'nombre' => 'Remera deportiva',
+            'precio' => '$12.000',
+            'imagen' => 'mujeres/remeras/remera'.$i.'.jpg'
+        ])
+    @endfor
+</div>
+@endif
+
+
 <h4>Calzas Largas</h4>
 <div class="row">
     @for ($i = 1; $i <= 4; $i++)

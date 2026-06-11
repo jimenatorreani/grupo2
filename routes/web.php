@@ -9,6 +9,8 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CatalogoController;
+
 
 
 /*Ruta para la vista de inicio de laravel*/
@@ -26,7 +28,7 @@ return view('frontend.comercializacion');
 });
 
 
-/*Ruta para la vista de los catálogos 'hombres' 'mujeres' */
+/*Ruta para la vista de los catálogos 'hombres' 'mujeres' creados como cátalogo estático para el frontend 
 Route::get('/hombres/{categoria?}', function ($categoria = null) {
  return view('frontend.catalogo.hombres', compact('categoria'));
 });
@@ -34,6 +36,7 @@ Route::get('/hombres/{categoria?}', function ($categoria = null) {
 Route::get('/mujeres/{categoria?}', function ($categoria = null) {
  return view('frontend.catalogo.mujeres', compact('categoria'));
 });
+*/
 
 /*Rutas para las vistas 'pagos','envios','entregas' y 'devoluciones' de la seccion comercializacion */
 Route::view('/pagos', 'frontend.info.pagos')->name('pagos');
@@ -152,3 +155,8 @@ Route::get('/admin', [AdminController::class, 'dashboard'])
 Route::get('/cliente', [ClienteController::class, 'dashboard'])
     ->middleware('cliente')
     ->name('cliente.dashboard');
+
+/* Ruta para la vista de los catálogos 'hombres, 'mujeres', 
+   creados como Catálogo DINÁMICO para el backend*/
+Route::get('/mujeres/{categoria?}', [CatalogoController::class, 'mujeres']);
+Route::get('/hombres/{categoria?}', [CatalogoController::class, 'hombres']);
