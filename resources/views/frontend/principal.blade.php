@@ -147,6 +147,26 @@
     </div>
 
 </div>
+<br><br>
+<br><br>
+
+<h4 class="mb-5 titulosmigaleria">Productos Destacados</h4>
+
+<div class="row">
+
+@foreach($destacados as $producto)
+
+    @include('partials.card-producto', [
+        'nombre' => $producto->nombre,
+        'precio' => '$' . number_format($producto->precio, 0, ',', '.'),
+        'imagen' => $producto->url_imagen
+    ])
+
+@endforeach
+
+</div>
+
+
 {{--
 <div class="banners">
     <img src="{{ asset('img/banners/banner5.jpg') }}" alt="pagos">

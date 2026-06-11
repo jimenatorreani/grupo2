@@ -10,7 +10,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CatalogoController;
-
+use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\CarritoController;
 
@@ -20,14 +20,10 @@ Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])
     ->name('carrito.agregar');
 
 /*Ruta para la vista de inicio de laravel*/
-Route::get('/', function () {
-    return view('frontend.principal');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 /*Ruta para las vistas ('principal'.'quienes-somos','comercializacion','contactos','terminos-y-usos','consultas')*/
-Route::get('/principal', function () {
-return view('frontend.principal');
-});
+Route::get('/principal', [HomeController::class, 'index']);
 
 Route::get('/comercializacion', function () {
 return view('frontend.comercializacion');
