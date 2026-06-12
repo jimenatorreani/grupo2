@@ -6,10 +6,10 @@
             <div class="col-md-4 mb-1"> 
                 <h3 class="text-uppercase fw-bold mb-2">Información </h3> 
                 <ul class="list-unstyled mb-1">
-                    <li><a href="#" class="text-white text-decoration-none"> Sobre Nosotros</a></li>
+                    <li><a href="/quienes-somos" class="text-white text-decoration-none"> Sobre Nosotros</a></li>
                     <li><a href="#" class="text-white text-decoration-none"> Devoluciones</a></li>
                     <li><a href="#" class="text-white text-decoration-none"> Botón de Arrepentimiento</a></li>
-                    <li><a href="#" class="text-white text-decoration-none"> Términos y Condiciones</a></li>
+                    <li><a href="/terminos-y-usos" class="text-white text-decoration-none"> Términos y Condiciones</a></li>
                    
                 </ul>
             </div>

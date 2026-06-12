@@ -33,5 +33,43 @@
         </li>
       </ul>
     </div>
-  </div>
+           <div class="d-flex align-items-center gap-3">
+
+    @php
+        $carritoCount = auth()->check()
+            ? (Auth::user()->carrito?->detalles()->sum('cantidad') ?? 0)
+            : 0;
+    @endphp
+
+    <a href="{{ route('cliente.carrito') }}"
+       class="text-white text-decoration-none position-relative">
+
+        <i class="bi bi-cart3 fs-4"></i>
+
+        <span class="badge bg-danger rounded-pill">{{ $carritoCount }}</span>
+    </a>
+
+    <div class="dropdown">
+        <a class="text-white dropdown-toggle text-decoration-none"
+           href="#"
+           role="button"
+           data-bs-toggle="dropdown">
+
+            <i class="bi bi-person-circle fs-4"></i>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+            <li><a class="dropdown-item" href="{{ route('roles.create') }}">Crear Rol</a></li>
+            <li><a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a></li>
+        </ul>
+    </div>
+
+</div>
+
+    
+</li>
+</a>
+</a>
+          </div>
 </nav>

@@ -12,6 +12,12 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CatalogoController;
 
 
+use App\Http\Controllers\CarritoController;
+
+Route::get('/carrito', [CarritoController::class, 'index'])
+    ->name('carrito.index');
+Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])
+    ->name('carrito.agregar');
 
 /*Ruta para la vista de inicio de laravel*/
 Route::get('/', function () {
@@ -160,3 +166,24 @@ Route::get('/cliente', [ClienteController::class, 'dashboard'])
    creados como Catálogo DINÁMICO para el backend*/
 Route::get('/mujeres/{categoria?}', [CatalogoController::class, 'mujeres']);
 Route::get('/hombres/{categoria?}', [CatalogoController::class, 'hombres']);
+
+Route::middleware(['auth', 'cliente'])->group(function () {
+    Route::get('/compra/confirmada', function () {
+        return view('carrito.confirmada');
+    })->name('compra.confirmada');
+    // Mostrar el carrito
+    Route::get('/carrito', [CarritoController::class, 'index'])
+        ->name('cliente.carrito');
+
+    // Agregar un producto
+    Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])
+        ->name('carrito.agregar');
+
+    // Eliminar un producto
+    Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])
+        ->name('carrito.eliminar');
+
+    // Confirmar la compra
+    Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])
+        ->name('carrito.confirmar');
+});

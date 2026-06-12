@@ -20,6 +20,7 @@
 @foreach($productos as $producto)
 
     @include('partials.card-producto', [
+        'producto_id' => $producto->id,
         'nombre' => $producto->nombre,
         'precio' => '$' . number_format($producto->precio, 0, ',', '.'),
         'imagen' => $producto->url_imagen

@@ -54,9 +54,14 @@ class User extends Authenticatable
     }
 
     // Relación: un Usuario pertenece a un Rol → se usa como $usuario->ro
-    public function rol(){
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class);
+    }
 
-        return $this->belongsTo(Rol::class); //belongsTo = 'pertenece a'
- 
+    public function carrito()
+    {
+        return $this->hasOne(VentaCabecera::class, 'user_id')
+            ->where('estado', 'carrito');
     }
 }
