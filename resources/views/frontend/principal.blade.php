@@ -47,40 +47,93 @@
   {{--Mediante css en el archivo public/css/estilos.css, agrego estilos personalizados para el carrousel, como ajustar la altura de las imágenes, 
    agregar un fondo oscuro con opacidad para mejorar la legibilidad de los controles y las descripciones
    y centrar el texto de las descripciones.--}}
-<br>
+<br><br>
 
 <div class="banners">
     <img src="{{ asset('img/banners/banner7.jpg') }}" alt="pagos">
     <img src="{{ asset('img/banners/banner8.jpg') }}" alt="pagos">
     <img src="{{ asset('img/banners/banner9.jpg') }}" alt="pagos">
 </div>
-<br><br>
+<br><br><br><br>
 <h4 class="mb-5 titulosmigaleria">Entrená con estilo</h4>
 <div class="gallery mi-galeria-conCSS">
+  <div class="gallery-item">
 
-<div class="gallery-item">
-  <a target="_blank" href="img_5terre.jpg">
-    <img src="{{ asset('img/banners/entrena-con-estilo/entrenar1.jpg') }}" alt="entrenar1" width="600" height="400">
-  </a>
-</div>
+    <a href="/mujeres/zapatillas">
+        <img src="{{ asset('img/banners/entrena-con-estilo/entrenar1.jpg') }}"
+             alt="entrenar1">
+    </a>
 
-<div class="gallery-item">
-  <a href="{{ asset('img/banners/entrena-con-estilo/entrenar2.jpg') }}">
-    <img src="{{ asset('img/banners/entrena-con-estilo/entrenar2.jpg') }}" alt="entrenar2" width="600" height="400">
-  </a>
-</div>
+    <a href="/mujeres/zapatillas" class="btn-entrenar">
+        VER ZAPATILLAS →
+    </a>
 
-<div class="gallery-item">
-  <a  href="{{ asset('img/banners/entrena-con-estilo/entrenar9.jpg') }}">
-    <img src="{{ asset('img/banners/entrena-con-estilo/entrenar9.jpg') }}" alt="entrenar9" width="600" height="400">
-  </a>
-</div>
+  </div>
 
-<div class="gallery-item">
-  <a href="{{ asset('img/banners/entrena-con-estilo/entrenar4.jpg') }}">
-    <img src="{{ asset('img/banners/entrena-con-estilo/entrenar4.jpg') }}" alt="entrenar4" width="600" height="400">
-  </a>
-</div>
+  <div class="gallery-item">
+
+    <a href="/mujeres">
+        <img src="{{ asset('img/banners/entrena-con-estilo/entrenar2.jpg') }}"
+             alt="entrenar2">
+    </a>
+
+    <a href="/mujeres" class="btn-entrenar">
+        VER MUJERES →
+    </a>
+
+  </div>
+
+  <div class="gallery-item">
+
+    <a href="/hombres">
+        <img src="{{ asset('img/banners/entrena-con-estilo/entrenar9.jpg') }}"
+             alt="entrenar9">
+    </a>
+
+    <a href="/hombres" class="btn-entrenar">
+        VER HOMBRES →
+    </a>
+
+  </div>
+
+  <div class="gallery-item">
+
+    <a href="/mujeres/conjutos">
+        <img src="{{ asset('img/banners/entrena-con-estilo/entrenar4.jpg') }}"
+             alt="entrenar4">
+    </a>
+
+    <a href="/mujeres/conjuntos" class="btn-entrenar">
+        VER CONJUNTOS →
+    </a>
+
+  </div>
+
+   {{--
+    <div class="gallery-item">
+      <a target="_blank" href="img_5terre.jpg">
+        <img src="{{ asset('img/banners/entrena-con-estilo/entrenar1.jpg') }}" alt="entrenar1" width="600" height="400">
+      </a>
+    </div>
+
+    <div class="gallery-item">
+      <a href="{{ asset('img/banners/entrena-con-estilo/entrenar2.jpg') }}">
+        <img src="{{ asset('img/banners/entrena-con-estilo/entrenar2.jpg') }}" alt="entrenar2" width="600" height="400">
+      </a>
+    </div>
+
+    <div class="gallery-item">
+      <a  href="{{ asset('img/banners/entrena-con-estilo/entrenar9.jpg') }}">
+        <img src="{{ asset('img/banners/entrena-con-estilo/entrenar9.jpg') }}" alt="entrenar9" width="600" height="400">
+      </a>
+    </div>
+
+    <div class="gallery-item">
+      <a href="{{ asset('img/banners/entrena-con-estilo/entrenar4.jpg') }}">
+        <img src="{{ asset('img/banners/entrena-con-estilo/entrenar4.jpg') }}" alt="entrenar4" width="600" height="400">
+      </a>
+    </div>
+    --}}
 
 </div>
 
