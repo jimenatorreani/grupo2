@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-    {{-- HEADER --}}
-    @include('partials.header')
+    {{-- HEADER 
+    @include('partials.header')--}}
+    
     
     {{-- NAVBAR --}}
     @include('partials.navbar')

@@ -210,6 +210,7 @@
 @foreach($destacados as $producto)
 
     @include('partials.card-producto', [
+        'id' => $producto->id,
         'nombre' => $producto->nombre,
         'precio' => '$' . number_format($producto->precio, 0, ',', '.'),
         'imagen' => $producto->url_imagen

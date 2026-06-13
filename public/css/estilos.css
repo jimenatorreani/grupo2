@@ -8,9 +8,26 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif !important;
 }
 
+
 .mi-navbar {
     border:1px solid black;
 }
+
+/* Evita que las letras se junten o amontonen */
+.mi-navbar .navbar-nav {
+    flex-wrap: nowrap; 
+}
+
+/* Fuerza a los elementos del menú a mantener su tamaño original sin encogerse */
+.mi-navbar .nav-item {
+    flex-shrink: 0;
+}
+
+/* Evita saltos de línea accidentales en el texto del menú */
+.mi-navbar .nav-link {
+    white-space: nowrap !important;
+}
+
 
 .mi-navbar .nav-link {
     font-family: Trebuchet MS, sans-serif !important;

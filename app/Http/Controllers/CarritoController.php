@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\User;
+use App\Models\Categoria;
+use App\Models\Rol;
+
 use App\Models\VentaCabecera;
 use App\Models\VentaDetalle;
 
@@ -14,7 +18,7 @@ private function obtenerCarrito()
 {
     return VentaCabecera::firstOrCreate(
         [
-            'user_id' => auth()->id(),
+            'user_id' => auth()->user()->id, // <-- Corregido: sin paréntesis
             'estado' => 'carrito',
         ],
         // Si crea uno nuevo, arranca con total 0
@@ -23,6 +27,7 @@ private function obtenerCarrito()
         ]
     );
 }
+
 public function index()
 {
     $carrito = $this->obtenerCarrito();
@@ -76,7 +81,7 @@ public function agregar(Request $request)
 
     return back()->with('success', 'Producto agregado al carrito');
 }
-public function eliminar($id)
+public function eliminar(int $id)
 {
     $carrito = $this->obtenerCarrito();
 
