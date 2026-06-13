@@ -94,7 +94,7 @@ public function eliminar(int $id)
 
     return back()->with('success', 'Producto eliminado');
 }
-public function confirmar()
+public function confirmar(Request $request)
 {
     $carrito = $this->obtenerCarrito();
 
@@ -109,23 +109,40 @@ public function confirmar()
     $total = $carrito->total;
 
     // Cambia estado y guarda fecha exacta de la compra
-    $carrito->update([
-        'estado' => 'confirmado',
-        'fecha_venta' => now(),
+    $request->validate([
+    'forma_pago_id' => 'required|exists:forma_pagos,id',
     ]);
+    $carrito->update([
+    'estado' => 'confirmado',
+    'fecha_venta' => now(),
+    'forma_pago_id' => $request->forma_pago_id,
+]);
 
     // Pasa los datos por sesión a la vista de confirmación
     return redirect()->route('compra.confirmada')
                      ->with('items', $items)
+                     ->with('venta_id', $carrito->id)
                      ->with('total', $total);
 }
 private function recalcularTotal(VentaCabecera $carrito)
-{
+ {
     // sum() suma todos los subtotales de los ítems del carrito
     $total = $carrito->detalles()->sum('subtotal');
 
     $carrito->update([
         'total' => $total,
     ]);
+  
+}
+
+
+public function descargarComprobante($id)
+{
+    $venta = VentaCabecera::with([
+        'usuario',
+        'detalles.producto'
+    ])->findOrFail($id);
+
+    return view('carrito.comprobante.comprobante', compact('venta'));
 }
 }

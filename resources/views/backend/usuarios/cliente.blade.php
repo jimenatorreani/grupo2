@@ -120,10 +120,10 @@
                     Ver historial de pedidos realizados.
                 </p>
 
-                <a href="#"
-                   class="btn btn-sport">
+                <a href="{{ route('cliente.compras') }}"
+                    class="btn btn-sport">
 
-                    Ver Mis Compras
+                     Ver Mis Compras
 
                 </a>
 
@@ -147,11 +147,8 @@
                     Gestionar productos seleccionados.
                 </p>
 
-                <a href="#"
-                   class="btn btn-sport">
-
+                <a href="{{ route('cliente.carrito') }}" class="btn btn-sport">
                     Ir al carrito
-
                 </a>
 
             </div>

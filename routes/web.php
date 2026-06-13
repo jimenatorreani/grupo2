@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ConsultaController;
 
 use App\Http\Controllers\CarritoController;
 
@@ -57,9 +58,10 @@ Route::get('/terminos-y-usos', function () {
     return view('frontend.terminos-y-usos'); 
 });
 
- Route::get('/consultas', function () {
-    return view('frontend.consultas'); 
-});
+Route::get('/consultas', [ConsultaController::class, 'show'])
+    ->name('consultas.show');
+ Route::post('/consultas', [ConsultaController::class, 'store'])
+    ->name('consultas.store');
 
 Route::get('/quienes-somos', function () {
     return view('frontend.quienes-somos');
@@ -152,11 +154,23 @@ Route::get('/admin', [AdminController::class, 'dashboard'])
     ->middleware('admin')
     ->name('admin.dashboard');
 
+Route::get('/admin/ventas', [AdminController::class, 'ventas'])
+    ->middleware('admin')
+    ->name('admin.ventas.index');
+
+Route::get('/admin/consultas', [ConsultaController::class, 'index'])
+    ->middleware('admin')
+    ->name('admin.consultas.index');
+
 //Rutas para el controlador ClienteController:
 // Dashboard cliente
 Route::get('/cliente', [ClienteController::class, 'dashboard'])
     ->middleware('cliente')
     ->name('cliente.dashboard');
+
+Route::get('/mis-compras', [ClienteController::class, 'misCompras'])
+    ->middleware('auth')
+    ->name('cliente.compras');
 
 /* Ruta para la vista de los catálogos 'hombres, 'mujeres', 
    creados como Catálogo DINÁMICO para el backend*/
@@ -182,4 +196,8 @@ Route::middleware(['auth', 'cliente'])->group(function () {
     // Confirmar la compra
     Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])
         ->name('carrito.confirmar');
+
+    // Descargar comprobante de una venta confirmada
+    Route::get('/comprobante/{id}', [CarritoController::class, 'descargarComprobante'])
+        ->name('comprobante.descargar');
 });

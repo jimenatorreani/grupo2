@@ -180,7 +180,7 @@
                     Visualizar ventas realizadas.
                 </p>
 
-                <a href="#"
+                <a href="{{ route('admin.ventas.index') }}"
                    class="btn btn-sport">
 
                     Visualizar
@@ -207,8 +207,8 @@
                     Consultas enviadas por clientes.
                 </p>
 
-                <a href="#"
-                   class="btn btn-sport">
+                <a href="{{ route('admin.consultas.index') }}"
+                    class="btn btn-sport">
 
                     Visualizar
 

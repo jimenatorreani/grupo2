@@ -3,12 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\VentaCabecera;
 
 class ClienteController extends Controller
 {
-    //Sólo muestra el panel de cliente si el usuario logueado es un cliente:
+    // Sólo muestra el panel de cliente si el usuario logueado es un cliente
     public function dashboard()
     {
         return view('backend.usuarios.cliente');
     }
+
+    public function misCompras()
+{
+    $compras = VentaCabecera::with('formaPago')
+        ->where('user_id', auth()->id())
+        ->where('estado', 'confirmado')
+        ->latest('fecha_venta')
+        ->get();
+
+    return view('backend.usuarios.compras', compact('compras'));
+}
 }

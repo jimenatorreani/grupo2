@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-xl bg-dark navbar-dark mi-navbar">
   <div class="container-fluid px-4">
-    <a class="navbar-brand" href="#">SportXpress</a>
+    <a class="navbar-brand" href="/principal">SportXpress</a>
     
     <!-- CONTENEDOR DE ÍCONOS PARA CELULARES (Se ve en pantallas chicas, se oculta en XL) -->
     <div class="d-flex align-items-center gap-3 ms-auto me-3 d-xl-none">

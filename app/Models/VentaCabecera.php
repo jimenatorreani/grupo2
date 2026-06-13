@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\FormaPago;
 
 class VentaCabecera extends Model
 {
@@ -13,6 +14,7 @@ protected $fillable = [
     'estado',
     'total',
     'fecha_venta',
+    'forma_pago_id'
 ];
 
 protected $casts = [
@@ -30,5 +32,9 @@ public function usuario()
 public function detalles()
 {
     return $this->hasMany(VentaDetalle::class, 'venta_id');
+}
+public function formaPago()
+{
+    return $this->belongsTo(FormaPago::class);
 }
 }
