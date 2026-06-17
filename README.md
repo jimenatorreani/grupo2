@@ -56,3 +56,84 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Sistema de Tienda de Ropa Deportiva
+
+## Requisitos
+
+- PHP
+- Composer
+- MySQL
+
+## Instalación
+
+1. Clonar el repositorio.
+
+2. Instalar dependencias:
+
+```bash
+composer install
+```
+
+3. Copiar el archivo de entorno:
+
+```bash
+cp .env.example .env.copy
+```
+
+4. Configurar los datos de conexión a la base de datos en el archivo `.env`.
+
+Ejemplo:
+
+```env.copy
+DB_CONNECTION=mariadb
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=basegrupo2
+DB_USERNAME=root
+DB_PASSWORD=tpig2
+
+5. Generar la clave de la aplicación:
+
+```bash
+php artisan key:generate
+```
+
+6. Ejecutar migraciones y seeders:
+
+```bash
+php artisan migrate --seed
+```
+
+7. Iniciar el servidor:
+
+```bash
+php artisan serve
+```
+
+## Base de datos
+
+Este proyecto utiliza la opción **Migrations y Seeders**.
+
+Luego de configurar el archivo `.env`, ejecutar:
+
+```bash
+php artisan migrate --seed
+```
+
+para crear automáticamente todas las tablas y cargar los datos iniciales.
+
+Rama GitHub:
+clone: https://github.com/jimenatorreani/grupo2/tree/estado-estable-luego-de-la-recuperacion
+
+
+
+MAIL_MAILER=smtp
+MAIL_SCHEME=null
+MAIL_HOST=stmp.gmail.com
+MAIL_PORT=578
+MAIL_USERNAME= jimenatorreani93@gmail.com
+MAILPASSWORD= smnzbqbdqevwvrgy
+MAIL_ENCRYPTION= tls
+MAIL_FROM_ADDRESS= "jimenatorreani93@gmail.com"
+MAIL_FROM_NAME: "Tienda Deportiva"
