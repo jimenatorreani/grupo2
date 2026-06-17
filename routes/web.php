@@ -210,3 +210,7 @@ Route::middleware(['auth', 'cliente'])->group(function () {
     ->name('comprobante.mail');   
 
 });
+
+Route::get('/comprobante-enviado', function () {
+    return view('backend.carrito.comprobante.comprobante-enviado');
+})->name('comprobante.enviado');

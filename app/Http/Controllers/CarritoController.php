@@ -180,10 +180,9 @@ public function enviarComprobante(int $id)
     Mail::to($venta->usuario->email)
         ->send(new ComprobanteMail($venta));
 
-    return back()->with(
-        'success',
-        'Comprobante enviado correctamente'
-    );
+    return redirect()-> route ('comprobante.enviado');
+    
+
 }
 
 }
