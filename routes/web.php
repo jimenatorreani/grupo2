@@ -179,7 +179,7 @@ Route::get('/hombres/{categoria?}', [CatalogoController::class, 'hombres']);
 
 Route::middleware(['auth', 'cliente'])->group(function () {
     Route::get('/compra/confirmada', function () {
-        return view('carrito.confirmada');
+        return view('backend.carrito.confirmada');
     })->name('compra.confirmada');
     // Mostrar el carrito
     Route::get('/carrito', [CarritoController::class, 'index'])
@@ -197,7 +197,16 @@ Route::middleware(['auth', 'cliente'])->group(function () {
     Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])
         ->name('carrito.confirmar');
 
-    // Descargar comprobante de una venta confirmada
+    // VER comprobante de una venta confirmada
     Route::get('/comprobante/{id}', [CarritoController::class, 'descargarComprobante'])
         ->name('comprobante.descargar');
+
+    //DESCARGAR comprobante de una venta
+    Route::get('/comprobante/{id}/pdf',[CarritoController::class, 'descargarPdf'])
+        ->name('comprobante.pdf');
+
+    //ENVIAR comprobante por al correo electrónico.
+    Route::get('/comprobante/{id}/mail', [CarritoController::class, 'enviarComprobante'])
+    ->name('comprobante.mail');   
+
 });

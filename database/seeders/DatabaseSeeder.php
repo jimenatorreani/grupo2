@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         RolesSeeder::class,
         CategoriaSeeder::class,
         ProductoSeeder::class,
+        FormaPagoSeeder::class,
         ]);
 
     }

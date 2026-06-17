@@ -13,12 +13,12 @@
 
     <a href="{{ route('comprobante.descargar', session('venta_id')) }}"
        class="btn btn-success mt-3">
-        Descargar comprobante
+        Ver Comprobante
     </a>
 
     <a href="{{ route('cliente.carrito') }}"
        class="btn btn-primary mt-3">
-        Volver al carrito
+        Volver al Carrito
     </a>
 </div>
 

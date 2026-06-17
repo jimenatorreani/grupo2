@@ -6,7 +6,6 @@
 
 <div class="container py-5">
 
-```
 <div class="text-center mb-5">
 
     <h1 class="fw-bold">
@@ -182,7 +181,6 @@
     </form>
 
 </div>
-```
 
 </div>
 

@@ -51,5 +51,11 @@
         Total: ${{ number_format($venta->total,2) }}
     </h4>
 
+    <a href="{{ route('comprobante.pdf', ['id' => $venta->id]) }}" class="btn btn-success mt-3">
+        Descargar PDF
+    </a>
+    <a href="{{ route('comprobante.mail', $venta->id) }}" class="btn btn-primary mt-3">
+    Enviar por Mail
+    </a>
 </div>
 @endsection

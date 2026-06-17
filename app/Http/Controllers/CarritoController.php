@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Barryvdh\DomPDF\Facade\Pdf; //librería que permite descargar PDF
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ComprobanteMail; //importamos los métodos para enviar por mail(??
 use App\Models\Producto;
 use App\Models\User;
 use App\Models\Categoria;
@@ -10,6 +12,7 @@ use App\Models\Rol;
 
 use App\Models\VentaCabecera;
 use App\Models\VentaDetalle;
+
 
 class CarritoController extends Controller
 {
@@ -135,14 +138,52 @@ private function recalcularTotal(VentaCabecera $carrito)
   
 }
 
-
-public function descargarComprobante($id)
+//VER comprobante
+public function descargarComprobante(int $id)
 {
     $venta = VentaCabecera::with([
         'usuario',
         'detalles.producto'
     ])->findOrFail($id);
 
-    return view('carrito.comprobante.comprobante', compact('venta'));
+    return view('backend.carrito.comprobante.comprobante', compact('venta'));
 }
+
+//DESCARGAR comprobante como PDF
+public function descargarPdf(int $id)
+{
+    $venta = VentaCabecera::with([
+        'usuario',
+        'detalles.producto',
+        'formaPago'
+    ])->findOrFail($id);
+
+    $pdf = Pdf::loadView(
+     'backend.carrito.comprobante.comprobante-pdf',
+      compact('venta')
+    );
+
+    return $pdf->download(
+        'comprobante_'.$venta->id.'.pdf'
+    );
+}
+
+//Envía el comprobante por mail
+public function enviarComprobante(int $id)
+{
+    $venta = VentaCabecera::with([
+        'usuario',
+        'detalles.producto',
+        'formaPago'
+    ])->findOrFail($id);
+
+    Mail::to($venta->usuario->email)
+        ->send(new ComprobanteMail($venta));
+
+    return back()->with(
+        'success',
+        'Comprobante enviado correctamente'
+    );
+}
+
 }
