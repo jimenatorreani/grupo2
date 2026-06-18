@@ -12,8 +12,8 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ConsultaController;
-
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\PerfilController;
 
 Route::get('/carrito', [CarritoController::class, 'index'])
     ->name('carrito.index');
@@ -214,3 +214,17 @@ Route::middleware(['auth', 'cliente'])->group(function () {
 Route::get('/comprobante-enviado', function () {
     return view('backend.carrito.comprobante.comprobante-enviado');
 })->name('comprobante.enviado');
+
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/perfil', [PerfilController::class, 'show'])
+        ->name('perfil.show');
+
+    Route::get('/perfil/editar', [PerfilController::class, 'edit'])
+        ->name('perfil.edit');
+
+    Route::put('/perfil', [PerfilController::class, 'update'])
+        ->name('perfil.update');
+
+});

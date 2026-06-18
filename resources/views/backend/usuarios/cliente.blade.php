@@ -92,10 +92,9 @@
                     Consultar información de tu cuenta.
                 </p>
 
-                <a href="#"
-                   class="btn btn-sport">
+                <a href="{{ route('perfil.show') }}" class="btn btn-sport">
 
-                    Ver Perfil
+                Ver Perfil
 
                 </a>
 

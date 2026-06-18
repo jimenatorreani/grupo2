@@ -7,6 +7,46 @@
 
 @section('content')
 
+<div class="row mb-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h6>Usuarios registrados</h6>
+                <h2>{{ $totalUsuarios }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h6>Productos</h6>
+                <h2>{{ $totalProductos }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h6>Pedidos</h6>
+                <h2>{{ $totalPedidos }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h6>Ventas realizadas</h6>
+                <h2>${{ number_format($totalVentas,0,',','.') }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <div class="container py-5">
 
 <div class="text-center mb-5">

@@ -109,24 +109,50 @@ public function confirmar(Request $request)
                      ->with('producto')
                      ->get();
 
+    // Validar forma de pago
+    $request->validate([
+        'forma_pago_id' => 'required|exists:forma_pagos,id',
+    ]);
+
+    // Verificar stock
+    foreach ($items as $item) {
+
+        $producto = $item->producto;
+
+        if ($producto->stock < $item->cantidad) {
+
+            return back()->with(
+                'error',
+                'No hay stock suficiente para '.$producto->nombre
+            );
+        }
+    }
+
+    // Descontar stock
+    foreach ($items as $item) {
+
+        $producto = $item->producto;
+
+        $producto->stock -= $item->cantidad;
+
+        $producto->save();
+    }
+
     $total = $carrito->total;
 
-    // Cambia estado y guarda fecha exacta de la compra
-    $request->validate([
-    'forma_pago_id' => 'required|exists:forma_pagos,id',
-    ]);
+    // Confirmar compra
     $carrito->update([
-    'estado' => 'confirmado',
-    'fecha_venta' => now(),
-    'forma_pago_id' => $request->forma_pago_id,
-]);
+        'estado' => 'confirmado',
+        'fecha_venta' => now(),
+        'forma_pago_id' => $request->forma_pago_id,
+    ]);
 
-    // Pasa los datos por sesión a la vista de confirmación
     return redirect()->route('compra.confirmada')
                      ->with('items', $items)
                      ->with('venta_id', $carrito->id)
                      ->with('total', $total);
 }
+
 private function recalcularTotal(VentaCabecera $carrito)
  {
     // sum() suma todos los subtotales de los ítems del carrito
