@@ -47,4 +47,17 @@
         </div>
     </div>
 </div>
+
+{{-- código para agregar los links <-- anterior .. 1,2,3 .. siguiente --}}
+<div class="d-flex justify-content-center mt-3">
+    {{ $ventas->links() }}
+</div>
+
+<div class="text-center mt-2 mb-4">
+    Mostrando {{ $ventas->firstItem() }}
+    a {{ $ventas->lastItem() }}
+    de {{ $ventas->total() }}
+    resultados
+</div>
+
 @endsection

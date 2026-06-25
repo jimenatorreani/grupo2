@@ -26,7 +26,7 @@ class CatalogoController extends Controller
                 'frontend.catalogo.mujeres',
                 [
                     'categoria' => $categoria, //manda la info al blade para que pueda usarla
-                    'productos' => $productos->get() //manda la info al blade, luego obtine los productos de las categorias que se ha seleccionado
+                    'productos' => $productos->paginate(8) //manda la info al blade, luego obtine los productos de las categorias que se ha seleccionado
                 ]
             );
     }
@@ -49,7 +49,7 @@ class CatalogoController extends Controller
                 'frontend.catalogo.hombres',
                 [
                     'categoria' => $categoria, //manda la info al blade para que pueda usarla
-                    'productos' => $productos->get() //manda la info al blade, luego obtine los productos de las categorias que se ha seleccionado
+                    'productos' => $productos->paginate(8) //manda la info al blade, luego obtine los productos de las categorias que se ha seleccionado
                 ]
             );
     }

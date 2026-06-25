@@ -6,7 +6,13 @@
 <br>
 <h1>Crear Producto</h1>
 
-<form action="{{ route('productos.store') }}" method="POST">
+<form action="{{ route('productos.store') }}"
+      method="POST"
+      enctype="multipart/form-data">
+      {{-- los  formularios html normalmente sólo envían texto.
+           Cuando queremos enviar archivos de tipo imagenes, pdf, archivo word, etc.. 
+           necesitamos agregar: enctype="multipart/form-data", 
+           si no se agrega eso, laravel nunca recibirá la imágen --}}
 
     @csrf
 
@@ -42,11 +48,14 @@
     </div>
 
     <div class="mb-3">
-        <label>URL Imagen</label>
-        <input type="text"
-               name="url_imagen"
-               class="form-control"
-               value="{{ old('url_imagen') }}">
+        <label>Imagen del producto</label>
+        <input type="file" 
+           name="url_imagen"
+           class="form-control"
+           accept="image/*">
+           {{-- accept="image/*" le dice al navegador "sólo permitir imagenes"
+                por ejemplo: jpg, jpeg, png, webp. Pero NO: pdf, zip, exe 
+            --}}
     </div>
 
     <div class="mb-3">
@@ -81,7 +90,7 @@
         </select>
 
     </div>
-
+{{-- 
     <div class="mb-3">
 
         <label>Estado</label>
@@ -99,7 +108,7 @@
         </select>
 
     </div>
-
+--}}
     <button type="submit"
             class="btn btn-success">
         Guardar

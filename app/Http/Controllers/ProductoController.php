@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Str;
 use App\Models\Producto;
 use App\Models\Categoria;
 
@@ -11,7 +12,11 @@ class ProductoController extends Controller
     //Lista los productos junto con su categorías, que están registrados en la base de datos.
     public function index()
     {
-        $productos = Producto::with('categoria')->get(); //with('categoria') le dice a Laravel: “Además de traer productos, traé también sus categorias relacionadas”.
+        /*with('categoria') le dice a Laravel: “Además de traer productos, 
+        traé también sus categorias relacionadas”.*/ 
+        //paginate(10): carga la vista dividida en 8 paginas, cada pagina contendrá 10 archivos
+        $productos = Producto::with('categoria')
+                         ->paginate(10); 
         return view('backend.productos.index', compact('productos'));
     }
 
@@ -35,11 +40,27 @@ class ProductoController extends Controller
         'descripcion' => 'nullable|string',
         'precio' => 'required|numeric|min:0',
         'stock' => 'required|integer|min:0',
-        'url_imagen' => 'nullable|string|max:255',
+        'url_imagen' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         'genero' => 'required|in:masculino,femenino,unisex',
         'categoria_id' => 'required|exists:categorias,id',
         'activo' => 'required|boolean',
         ]);
+
+        //crea una variable $datos
+        $datos = $request->all();
+
+        /*Luego hasFile() pregunta: ¿el usuario seleccionó una imágen?,
+        si la seleccionó entra al if, sino continúa normalmente 
+        */
+        if ($request->hasFile('url_imagen')) {
+
+            $archivo = $request->file('url_imagen');
+            $nombreProducto = Str::slug($request->nombre); //acá "arregla el nombre del archivo que se va a subir. Ejemplo: si el producto es: Remera Adidas Negra, Laravel genera: remera-adidas-negra
+            $extension = $archivo->getClientOriginalExtension(); //obtiene la extencion del archivo, si era "foto123.png" obtiene png
+            $nombreArchivo = $nombreProducto . '.' . $extension; //concatena el nombre que quedó con la extención. Ejemplo: remera-adidas-negra.png
+
+        }
+
 
         //luego guarda en la variable $request todos los datos validados
         Producto::create($request->all());

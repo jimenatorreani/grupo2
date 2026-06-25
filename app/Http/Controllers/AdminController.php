@@ -40,7 +40,7 @@ class AdminController extends Controller
     {
         $ventas = VentaCabecera::with('usuario')
             ->latest('fecha_venta')
-            ->get();
+            ->paginate(10);
 
         return view('backend.admin.ventas', compact('ventas'));
     }

@@ -29,6 +29,18 @@
 @endforeach
 
 </div>
+{{-- código para agregar los links <-- anterior .. 1,2,3 .. siguiente --}}
+    <div class="d-flex justify-content-center mt-3">
+        {{ $productos->links() }}
+    </div>
+
+    <div class="text-center mt-2 mb-4">
+        Mostrando {{ $productos->firstItem() }}
+        a {{ $productos->lastItem() }}
+        de {{ $productos->total() }}
+        resultados
+    </div>
+    <br><br>
 
 
 

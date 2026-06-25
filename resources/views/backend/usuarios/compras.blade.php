@@ -5,6 +5,10 @@
 @section('content')
 
 <div class="container py-5">
+    <a href="{{ route('cliente.dashboard') }}" class="btn btn-secondary">
+        Volver
+    </a>
+    <br><br>
 
     <h1 class="mb-4">Mis Compras</h1>
 
@@ -46,10 +50,18 @@
 
     </table>
 
-    <a href="{{ route('cliente.dashboard') }}" class="btn btn-secondary">
-        Volver
-    </a>
-
 </div>
 
+{{-- código para agregar los links <-- anterior .. 1,2,3 .. siguiente --}}
+    <div class="d-flex justify-content-center mt-3">
+        {{ $compras->links() }}
+    </div>
+
+    <div class="text-center mt-2 mb-4">
+        Mostrando {{ $compras->firstItem() }}
+        a {{ $compras->lastItem() }}
+        de {{ $compras->total() }}
+        resultados
+    </div>
+    <br><br>
 @endsection

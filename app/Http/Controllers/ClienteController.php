@@ -20,7 +20,7 @@ class ClienteController extends Controller
         ->where('user_id', auth()->id())
         ->where('estado', 'confirmado')
         ->latest('fecha_venta')
-        ->get();
+        ->paginate(10);
 
     return view('backend.usuarios.compras', compact('compras'));
 }

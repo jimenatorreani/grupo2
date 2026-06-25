@@ -62,19 +62,6 @@
             </td>
 
             <td>
-    <form action="{{ route('carrito.agregar') }}" method="POST">
-        @csrf
-
-        <input type="hidden" name="producto_id" value="{{ $producto->id }}">
-
-        <input type="number" name="cantidad" value="1" min="1" style="width:70px;">
-
-        <button type="submit" class="btn btn-success btn-sm">
-            Agregar
-        </button>
-    </form>
-</td>
-            <td>
 
                 <a href="{{ route('productos.show', $producto->id) }}"
                    class="btn btn-info btn-sm">
@@ -118,5 +105,20 @@
     </tbody>
 
 </table>
+
+{{-- código para agregar los links <-- anterior .. 1,2,3 .. siguiente --}}
+<div class="d-flex justify-content-center mt-3">
+    {{ $productos->links() }}
+</div>
+
+
+<div class="text-center mt-2 mb-4">
+    Mostrando {{ $productos->firstItem() }}
+    a {{ $productos->lastItem() }}
+    de {{ $productos->total() }}
+    resultados
+</div>
+
+
 <br><br>
 @endsection
