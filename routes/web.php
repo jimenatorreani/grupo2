@@ -158,9 +158,17 @@ Route::get('/admin/ventas', [AdminController::class, 'ventas'])
     ->middleware('admin')
     ->name('admin.ventas.index');
 
+Route::get('/admin/ventas/{venta}', [AdminController::class, 'detalleVenta'])
+    ->middleware('admin')
+    ->name('admin.ventas.show');
+
 Route::get('/admin/consultas', [ConsultaController::class, 'index'])
     ->middleware('admin')
     ->name('admin.consultas.index');
+
+Route::post('/admin/consultas/{consulta}/estado', [ConsultaController::class, 'cambiarEstado'])
+    ->middleware('admin')
+    ->name('admin.consultas.estado');
 
 //Rutas para el controlador ClienteController:
 // Dashboard cliente
@@ -171,6 +179,10 @@ Route::get('/cliente', [ClienteController::class, 'dashboard'])
 Route::get('/mis-compras', [ClienteController::class, 'misCompras'])
     ->middleware('auth')
     ->name('cliente.compras');
+
+Route::get('/mis-compras/{venta}', [ClienteController::class, 'detalleCompra'])
+    ->middleware('auth')
+    ->name('cliente.compras.detalle');
 
 /* Ruta para la vista de los catálogos 'hombres, 'mujeres', 
    creados como Catálogo DINÁMICO para el backend*/
@@ -226,5 +238,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('/perfil', [PerfilController::class, 'update'])
         ->name('perfil.update');
+
+});
+Route::middleware(['auth'])->group(function(){
+
+    Route::get('/usuarios/{usuario}/compras',
+    [UsuarioController::class,'compras'])
+    ->name('usuarios.compras');
 
 });

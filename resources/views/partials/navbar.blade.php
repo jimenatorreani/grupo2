@@ -8,7 +8,7 @@
             $carritoCount = auth()->check() ? (Auth::user()->carrito?->detalles()->sum('cantidad') ?? 0) : 0;
         @endphp
         @auth
-        @if(Auth::user()->rol->nombre == 'cliente')
+        @if(Auth::user()->rol_id === 2 || optional(Auth::user()->rol)->nombre == 'cliente')
         <a href="{{ route('cliente.carrito') }}" class="text-white text-decoration-none position-relative">
             <i class="bi bi-cart3 fs-4"></i>
             <span class="badge bg-danger rounded-pill">{{ $carritoCount }}</span>
@@ -57,7 +57,7 @@
       <!-- CONTENEDOR DE ÍCONOS PARA COMPUTADORAS (Se oculta en pantallas chicas, se ve en XL) -->
       <div class="d-none d-xl-flex align-items-center gap-3">
         @auth
-        @if(Auth::user()->rol->nombre == 'cliente')
+        @if(Auth::user()->rol_id === 2 || optional(Auth::user()->rol)->nombre == 'cliente')
           <a href="{{ route('cliente.carrito') }}" class="text-white text-decoration-none position-relative">
               <i class="bi bi-cart3 fs-4"></i>
               <span class="badge bg-danger rounded-pill">{{ $carritoCount }}</span>
@@ -96,7 +96,7 @@
 
                 @auth
 
-                    @if(Auth::user()->rol->nombre == 'cliente')
+                    @if(Auth::user()->rol_id === 2 || optional(Auth::user()->rol)->nombre == 'cliente')
 
                         <li>
                             <a class="dropdown-item"
@@ -115,7 +115,7 @@
                     @endif
 
 
-                    @if(Auth::user()->rol->nombre == 'admin')
+                    @if(Auth::user()->rol_id === 1 || optional(Auth::user()->rol)->nombre == 'admin')
 
                         <li>
                             <a class="dropdown-item"

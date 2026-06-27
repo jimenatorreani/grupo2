@@ -12,6 +12,23 @@
         <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary">Volver al panel</a>
     </div>
 
+    <form method="GET" action="{{ route('admin.ventas.index') }}" class="row g-3 align-items-end mb-4">
+        <div class="col-md-3">
+            <label for="desde" class="form-label">Desde</label>
+            <input type="date" class="form-control" id="desde" name="desde" value="{{ request('desde') }}">
+        </div>
+        <div class="col-md-3">
+            <label for="hasta" class="form-label">Hasta</label>
+            <input type="date" class="form-control" id="hasta" name="hasta" value="{{ request('hasta') }}">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+        </div>
+        <div class="col-md-2">
+            <a href="{{ route('admin.ventas.index') }}" class="btn btn-outline-secondary w-100">Limpiar</a>
+        </div>
+    </form>
+
     <div class="card shadow border-0">
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -23,6 +40,7 @@
                             <th>Estado</th>
                             <th>Total</th>
                             <th>Fecha</th>
+                            <th>Detalle</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,10 +53,15 @@
                                 </td>
                                 <td>$ {{ number_format($venta->total, 2, ',', '.') }}</td>
                                 <td>{{ $venta->fecha_venta ? $venta->fecha_venta->format('d/m/Y H:i') : '-' }}</td>
+                                <td>
+                                    <a href="{{ route('admin.ventas.show', $venta) }}" class="btn btn-sm btn-outline-primary">
+                                        Ver detalle
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-4">No hay ventas registradas.</td>
+                                <td colspan="6" class="text-center text-muted py-4">No hay ventas registradas.</td>
                             </tr>
                         @endforelse
                     </tbody>

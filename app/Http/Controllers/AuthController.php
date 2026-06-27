@@ -77,7 +77,8 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             //y automaticamente redirige al panel segun sea admin o cliente el usuario logueado
-            if (Auth::user()->rol->nombre === 'admin') {
+            $usuario = Auth::user();
+            if ($usuario->rol_id === 1 || optional($usuario->rol)->nombre === 'admin') {
                 return redirect()->route('admin.dashboard');
             }
 

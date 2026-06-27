@@ -35,7 +35,7 @@
             <th>Precio</th>
             <th>Stock</th>
             <th>Estado</th>
-            <th>Acciones</th>
+            
         </tr>
     </thead>
 
@@ -62,7 +62,6 @@
             </td>
 
             <td>
-
                 <a href="{{ route('productos.show', $producto->id) }}"
                    class="btn btn-info btn-sm">
                     Ver

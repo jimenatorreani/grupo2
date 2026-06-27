@@ -21,6 +21,7 @@
                 <th>Estado</th>
                 <th>Total</th>
                 <th>Forma de Pago</th>
+                <th>Detalle</th>
             </tr>
         </thead>
 
@@ -34,12 +35,17 @@
                     <td>{{ $compra->estado }}</td>
                     <td>${{ number_format($compra->total, 2) }}</td>
                     <td>{{ $compra->formaPago->descripcion ?? 'No especificada' }}</td>
+                    <td>
+                        <a href="{{ route('cliente.compras.detalle', $compra) }}" class="btn btn-sm btn-outline-primary">
+                            Ver detalle
+                        </a>
+                    </td>
                 </tr>
 
             @empty
 
                 <tr>
-                    <td colspan="4" class="text-center">
+                    <td colspan="5" class="text-center">
                         Todavía no realizaste compras.
                     </td>
                 </tr>

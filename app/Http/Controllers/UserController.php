@@ -101,6 +101,10 @@ class UserController
     //Elimina un registro de usuario de la base de datos, en realidad lo esconde.
    public function destroy(User $usuario) //User $usuario : Laravel trae automáticamente el usuario por ID (Route Model Binding).
     {
+        if( $usuario->rol_id == 1) { //Si el usuario es admin, no se puede eliminar.
+            return redirect()->route('usuarios.index')
+                            ->with('error', 'No se puede eliminar un usuario administrador.');
+        }
         $usuario->delete(); //SoftDelete: setea deleted_at, no borra la fila - deleted_at = fecha actual
 
         return redirect()->route('usuarios.index')
@@ -114,6 +118,7 @@ class UserController
         $usuarios = User::onlyTrashed()->get();
 
         return view('backend.usuarios.deleted', compact('usuarios'));
+        //falta proteccion usuario admin
     }
 
 
@@ -121,6 +126,11 @@ class UserController
     public function restore(int $id)
     {
         $usuario = User::onlyTrashed()->findOrFail($id);
+
+        if( $usuario->rol_id == 1) { //Si el usuario es admin, no se puede restaurar.
+            return redirect()->route('usuarios.index')
+                            ->with('error', 'No se puede restaurar un usuario administrador.');
+        }
 
         $usuario->restore();
 

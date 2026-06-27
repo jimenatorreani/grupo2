@@ -26,6 +26,18 @@
 
 </div>
 
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if(session('exito'))
+    <div class="alert alert-success">
+        {{ session('exito') }}
+    </div>
+@endif
+
 <table class="table table-bordered table-striped">
 
 <thead>
@@ -50,7 +62,7 @@
 
         <td>{{ $usuario->email }}</td>
 
-        <td>{{ $usuario->rol->nombre }}</td>
+        <td>{{ optional($usuario->rol)->nombre ?? ($usuario->rol_id === 1 ? 'admin' : ($usuario->rol_id === 2 ? 'cliente' : 'Sin rol')) }}</td>
 
         <td>
 
@@ -64,20 +76,26 @@
                 Editar
             </a>
 
-            <form action="{{ route('usuarios.destroy', $usuario->id) }}"
-                  method="POST"
-                  style="display:inline;">
+            @if($usuario->rol_id !== 1 && $usuario->id !== auth()->id())
+                <form action="{{ route('usuarios.destroy', $usuario->id) }}"
+                      method="POST"
+                      style="display:inline;">
 
-                @csrf
-                @method('DELETE')
+                    @csrf
+                    @method('DELETE')
 
-                <button type="submit"
-                        class="btn btn-danger btn-sm"
-                        onclick="return confirm('¿Eliminar este usuario?')">
-                    Eliminar
+                    <button type="submit"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Eliminar este usuario?')">
+                        Eliminar
+                    </button>
+
+                </form>
+            @else
+                <button type="button" class="btn btn-secondary btn-sm" disabled>
+                    No disponible
                 </button>
-
-            </form>
+            @endif
 
         </td>
 

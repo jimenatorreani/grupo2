@@ -33,4 +33,20 @@ class ConsultaController extends Controller
 
         return view('backend.admin.consultas', compact('consultas'));
     }
+
+    public function cambiarEstado(Request $request, Consulta $consulta)
+    {
+        $request->validate([
+            'estado' => 'required|in:pendiente,leido,respondido'
+        ]);
+
+        $consulta->estado = $request->estado;
+        $consulta->save();
+
+        if ($request->wantsJson()) {
+            return response()->json(['status' => 'ok', 'estado' => $consulta->estado]);
+        }
+
+        return back();
+    }
 }

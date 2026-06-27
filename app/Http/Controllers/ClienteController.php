@@ -24,4 +24,18 @@ class ClienteController extends Controller
 
     return view('backend.usuarios.compras', compact('compras'));
 }
+
+    public function detalleCompra(VentaCabecera $venta)
+    {
+        if ($venta->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $venta->load(['usuario', 'detalles.producto', 'formaPago']);
+
+        return view('backend.ventas.detalle', [
+            'venta' => $venta,
+            'fromAdmin' => false,
+        ]);
+    }
 }

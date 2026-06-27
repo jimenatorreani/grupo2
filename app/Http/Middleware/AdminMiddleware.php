@@ -19,7 +19,7 @@ class AdminMiddleware
 
         //auth()->user() obtiene el usuario actual, por ejemplo: Maria
         //rol->nombre obtiene el rol asociado, por ejemplo: cliente.
-        if (Auth::user()->rol?->nombre !== 'admin') {
+        if (Auth::user()->rol_id !== 1 && Auth::user()->rol?->nombre !== 'admin') {
             abort(403);    // muestra 403 | Forbidden cuando intenta entrar alguien que no tiene permiso.
         }
 

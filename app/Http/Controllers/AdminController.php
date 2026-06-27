@@ -36,12 +36,31 @@ class AdminController extends Controller
         );
     }
 
-    public function ventas()
+    public function ventas(Request $request)
     {
-        $ventas = VentaCabecera::with('usuario')
-            ->latest('fecha_venta')
-            ->paginate(10);
+        $query = VentaCabecera::with('usuario')
+            ->latest('fecha_venta');
+
+        if ($request->filled('desde')) {
+            $query->whereDate('fecha_venta', '>=', $request->desde);
+        }
+
+        if ($request->filled('hasta')) {
+            $query->whereDate('fecha_venta', '<=', $request->hasta);
+        }
+
+        $ventas = $query->paginate(10)->withQueryString();
 
         return view('backend.admin.ventas', compact('ventas'));
+    }
+
+    public function detalleVenta(VentaCabecera $venta)
+    {
+        $venta->load(['usuario', 'detalles.producto']);
+
+        return view('backend.ventas.detalle', [
+            'venta' => $venta,
+            'fromAdmin' => true,
+        ]);
     }
 }
