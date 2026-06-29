@@ -247,3 +247,4 @@ Route::middleware(['auth'])->group(function(){
     ->name('usuarios.compras');
 
 });
+Route::post('/consultas/{consulta}/responder', [ConsultaController::class, 'responder']);

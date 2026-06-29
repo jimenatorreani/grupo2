@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Consulta extends Model
 {
-     protected $fillable = [
-        'nombre',
-        'email',
-        'asunto',
-        'mensaje',
-        'estado'
+    protected $fillable = [
+    'nombre',
+    'email',
+    'asunto',
+    'mensaje',
+    'estado',
+    'respuesta'
     ];
 }

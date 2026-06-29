@@ -49,14 +49,28 @@ class AdminController extends Controller
             $query->whereDate('fecha_venta', '<=', $request->hasta);
         }
 
+        // Calcular estadísticas antes de paginar
+        $totalVentas = (clone $query)->sum('total');
+        $cantidadPedidos = (clone $query)->count();
+        $promedioPorPedido = $cantidadPedidos > 0 ? $totalVentas / $cantidadPedidos : 0;
+        $ventasConfirmadas = (clone $query)->where('estado', 'confirmado')->count();
+        $ventasCarrito = (clone $query)->where('estado', 'carrito')->count();
+
         $ventas = $query->paginate(10)->withQueryString();
 
-        return view('backend.admin.ventas', compact('ventas'));
+        return view('backend.admin.ventas', compact(
+            'ventas',
+            'totalVentas',
+            'cantidadPedidos',
+            'promedioPorPedido',
+            'ventasConfirmadas',
+            'ventasCarrito'
+        ));
     }
 
     public function detalleVenta(VentaCabecera $venta)
     {
-        $venta->load(['usuario', 'detalles.producto']);
+        $venta->load(['usuario', 'detalles.producto', 'formaPago']);
 
         return view('backend.ventas.detalle', [
             'venta' => $venta,

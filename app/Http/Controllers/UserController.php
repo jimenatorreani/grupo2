@@ -99,16 +99,24 @@ class UserController
 
     //Elimine el recurso especificado del almacenamiento.
     //Elimina un registro de usuario de la base de datos, en realidad lo esconde.
-   public function destroy(User $usuario) //User $usuario : Laravel trae automáticamente el usuario por ID (Route Model Binding).
+    public function destroy(User $usuario)
     {
-        if( $usuario->rol_id == 1) { //Si el usuario es admin, no se puede eliminar.
+        // Protección 1: No se puede eliminar un usuario admin (rol_id = 1)
+        if ($usuario->rol_id == 1) {
             return redirect()->route('usuarios.index')
-                            ->with('error', 'No se puede eliminar un usuario administrador.');
+                            ->with('error', 'No se puede eliminar un usuario administrador. Los administradores son irreemplazables.');
         }
-        $usuario->delete(); //SoftDelete: setea deleted_at, no borra la fila - deleted_at = fecha actual
+
+        // Protección 2: No se puede eliminar el usuario actual
+        if (auth()->user()->id === $usuario->id) {
+            return redirect()->route('usuarios.index')
+                            ->with('error', 'No puedes eliminar tu propia cuenta.');
+        }
+
+        $usuario->delete(); //SoftDelete: setea deleted_at, no borra la fila
 
         return redirect()->route('usuarios.index')
-                        ->with('exito', 'Usuario eliminado.');
+                        ->with('exito', 'Usuario eliminado correctamente.');
     }
 
 

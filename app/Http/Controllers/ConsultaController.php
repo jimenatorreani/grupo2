@@ -12,6 +12,19 @@ class ConsultaController extends Controller
         return view('frontend.consultas');
     }
 
+public function responder(Request $request, Consulta $consulta)
+{
+    $request->validate([
+        'respuesta' => 'required|string|min:3'
+    ]);
+
+    $consulta->respuesta = $request->respuesta;
+    $consulta->estado = 'respondido';
+    $consulta->save();
+
+    return back()->with('success', 'Consulta respondida correctamente');
+}    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -30,6 +43,16 @@ class ConsultaController extends Controller
     public function index()
     {
         $consultas = Consulta::latest()->get();
+         $pendientes = Consulta::where('estado', 'pendiente')->count();
+    $leidos = Consulta::where('estado', 'leido')->count();
+    $respondidos = Consulta::where('estado', 'respondido')->count();
+
+    return view('backend.admin.consultas', compact(
+        'consultas',
+        'pendientes',
+        'leidos',
+        'respondidos'
+    ));
 
         return view('backend.admin.consultas', compact('consultas'));
     }

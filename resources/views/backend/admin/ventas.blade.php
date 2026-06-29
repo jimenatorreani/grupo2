@@ -29,6 +29,45 @@
         </div>
     </form>
 
+    {{-- Estadísticas de totales --}}
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white border-0 shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase small mb-2">Total de ventas</h6>
+                    <h3 class="mb-0">$ {{ number_format($totalVentas, 2, ',', '.') }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white border-0 shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase small mb-2">Cantidad de pedidos</h6>
+                    <h3 class="mb-0">{{ $cantidadPedidos }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white border-0 shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase small mb-2">Promedio por pedido</h6>
+                    <h3 class="mb-0">$ {{ number_format($promedioPorPedido, 2, ',', '.') }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-secondary text-white border-0 shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase small mb-2">Estados</h6>
+                    <div class="small">
+                        <strong>Confirmadas:</strong> {{ $ventasConfirmadas }}<br>
+                        <strong>Carrito:</strong> {{ $ventasCarrito }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card shadow border-0">
         <div class="card-body p-0">
             <div class="table-responsive">
