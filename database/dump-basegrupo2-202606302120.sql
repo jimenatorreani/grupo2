@@ -81,7 +81,7 @@ CREATE TABLE `categorias` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `categorias_descripcion_unique` (`descripcion`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,10 +111,12 @@ CREATE TABLE `consultas` (
   `email` varchar(255) NOT NULL,
   `asunto` varchar(255) NOT NULL,
   `mensaje` text NOT NULL,
+  `estado` varchar(255) NOT NULL DEFAULT 'pendiente',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `respuesta` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,6 +125,10 @@ CREATE TABLE `consultas` (
 
 LOCK TABLES `consultas` WRITE;
 /*!40000 ALTER TABLE `consultas` DISABLE KEYS */;
+INSERT INTO `consultas` VALUES
+(1,'ejemplo','ejemplo@gmail.com','un asunto','un mensaje','respondido','2026-06-18 22:50:31','2026-07-01 01:16:53','si volvera a reingresar'),
+(2,'Jimena-Cliente','js.torreani@outlook.com','reingreso','volverá a reingresar el producto \"ejemploProducto\"','respondido','2026-07-01 01:15:31','2026-07-01 02:54:20','>Sí, cuando este disponible de nuevo el producto, se volverá a mostrar en el catálogo. Muchas gracias por tu consulta'),
+(3,'J','js.torreani@outlook.com','ejemplo3','un mensaje 3','respondido','2026-07-01 03:02:51','2026-07-01 03:04:23','>ok');
 /*!40000 ALTER TABLE `consultas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +261,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,7 +281,9 @@ INSERT INTO `migrations` VALUES
 (8,'2026_06_12_003623_create_ventas_detalle_table',1),
 (9,'2026_06_13_011246_create_consultas_table',1),
 (10,'2026_06_13_201330_create_forma_pagos_table',1),
-(11,'2026_06_13_202038_add_forma_pago_id_to_ventas_cabecera_table',1);
+(11,'2026_06_13_202038_add_forma_pago_id_to_ventas_cabecera_table',1),
+(12,'2026_06_27_000001_add_estado_to_consultas_table',2),
+(13,'2026_06_29_204657_add_respuesta_to_consultas_table',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,7 +334,7 @@ CREATE TABLE `productos` (
   PRIMARY KEY (`id`),
   KEY `productos_categoria_id_foreign` (`categoria_id`),
   CONSTRAINT `productos_categoria_id_foreign` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,8 +345,8 @@ LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
 INSERT INTO `productos` VALUES
 (1,'Remera deportiva mujer 1','Remera deportiva femenina',12000.00,9,'mujeres/remeras/remera1.jpg','femenino',1,1,'2026-06-15 05:06:15','2026-06-18 03:33:20',NULL),
-(2,'Remera deportiva mujer 2','Remera deportiva femenina',12000.00,10,'mujeres/remeras/remera2.jpg','femenino',1,1,'2026-06-15 05:06:15','2026-06-15 05:06:15',NULL),
-(3,'Remera deportiva mujer 3','Remera deportiva femenina',12000.00,10,'mujeres/remeras/remera3.jpg','femenino',1,1,'2026-06-15 05:06:15','2026-06-15 05:06:15',NULL),
+(2,'Remera deportiva mujer 2','Remera deportiva femenina',12000.00,9,'mujeres/remeras/remera2.jpg','femenino',1,1,'2026-06-15 05:06:15','2026-06-25 23:53:20',NULL),
+(3,'Remera deportiva mujer 3','Remera deportiva femenina',12000.00,8,'mujeres/remeras/remera3.jpg','femenino',1,1,'2026-06-15 05:06:15','2026-06-25 23:55:06',NULL),
 (4,'Remera deportiva mujer 4','Remera deportiva femenina',12000.00,10,'mujeres/remeras/remera4.jpg','femenino',1,1,'2026-06-15 05:06:15','2026-06-15 05:06:15',NULL),
 (5,'Remera deportiva mujer 5','Remera deportiva femenina',12000.00,9,'mujeres/remeras/remera5.jpg','femenino',1,1,'2026-06-15 05:06:15','2026-06-17 22:50:44',NULL),
 (6,'Remera deportiva mujer 6','Remera deportiva femenina',12000.00,10,'mujeres/remeras/remera6.jpg','femenino',1,1,'2026-06-15 05:06:15','2026-06-15 05:06:15',NULL),
@@ -371,13 +379,13 @@ INSERT INTO `productos` VALUES
 (33,'Zapatilla deportiva mujer 2','Zapatilla deportiva femenina',25000.00,10,'mujeres/zapatillas/zapatilla2.jpg','femenino',4,1,'2026-06-15 05:06:15','2026-06-15 05:06:15',NULL),
 (34,'Zapatilla deportiva mujer 3','Zapatilla deportiva femenina',25000.00,10,'mujeres/zapatillas/zapatilla3.jpg','femenino',4,1,'2026-06-15 05:06:15','2026-06-15 05:06:15',NULL),
 (35,'Zapatilla deportiva mujer 4','Zapatilla deportiva femenina',25000.00,10,'mujeres/zapatillas/zapatilla4.jpg','femenino',4,1,'2026-06-15 05:06:15','2026-06-15 05:06:15',NULL),
-(36,'Remera deportiva hombre 1','Remera deportiva masculina',12000.00,9,'hombres/remeras/remera1.jpg','masculino',1,1,'2026-06-15 05:06:15','2026-06-17 22:40:14',NULL),
-(37,'Remera deportiva hombre 2','Remera deportiva masculina',12000.00,10,'hombres/remeras/remera2.jpg','masculino',1,1,'2026-06-15 05:06:15','2026-06-15 05:06:15',NULL),
-(38,'Remera deportiva hombre 3','Remera deportiva masculina',12000.00,10,'hombres/remeras/remera3.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
-(39,'Remera deportiva hombre 4','Remera deportiva masculina',12000.00,10,'hombres/remeras/remera4.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
+(36,'Remera deportiva hombre 1','Remera deportiva masculina',12000.00,8,'hombres/remeras/remera1.jpg','masculino',1,1,'2026-06-15 05:06:15','2026-07-01 00:45:18',NULL),
+(37,'Remera deportiva hombre 2','Remera deportiva masculina',12000.00,9,'hombres/remeras/remera2.jpg','masculino',1,1,'2026-06-15 05:06:15','2026-07-01 01:39:31',NULL),
+(38,'Remera deportiva hombre 3','Remera deportiva masculina',12000.00,8,'hombres/remeras/remera3.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-30 21:45:56',NULL),
+(39,'Remera deportiva hombre 4','Remera deportiva masculina',12000.00,9,'hombres/remeras/remera4.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-25 23:53:47',NULL),
 (40,'Remera deportiva hombre 5','Remera deportiva masculina',12000.00,10,'hombres/remeras/remera5.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
 (41,'Remera deportiva hombre 6','Remera deportiva masculina',12000.00,10,'hombres/remeras/remera6.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
-(42,'Remera deportiva hombre 7','Remera deportiva masculina',12000.00,10,'hombres/remeras/remera7.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
+(42,'Remera deportiva hombre 7','Remera deportiva masculina',12000.00,9,'hombres/remeras/remera7.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-18 22:14:10',NULL),
 (43,'Remera deportiva hombre 8','Remera deportiva masculina',12000.00,10,'hombres/remeras/remera8.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
 (44,'Remera deportiva hombre 9','Remera deportiva masculina',12000.00,10,'hombres/remeras/remera9.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
 (45,'Remera deportiva hombre 10','Remera deportiva masculina',12000.00,10,'hombres/remeras/remera10.jpg','masculino',1,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
@@ -404,10 +412,13 @@ INSERT INTO `productos` VALUES
 (66,'Jogging deportivo hombre 15','Jogging deportivo masculino',15000.00,10,'hombres/joggings/jogging15.jpg','masculino',2,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
 (67,'Jogging deportivo hombre 16','Jogging deportivo masculino',15000.00,10,'hombres/joggings/jogging16.jpg','masculino',2,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
 (68,'Zapatilla deportiva hombre 1','Zapatilla deportiva masculina',25000.00,10,'hombres/zapatillas/zapatilla1.jpg','masculino',4,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
-(69,'Zapatilla deportiva hombre 2','Zapatilla deportiva masculina',25000.00,10,'hombres/zapatillas/zapatilla2.jpg','masculino',4,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
+(69,'Zapatilla deportiva hombre 2','Zapatilla deportiva masculina',25000.00,9,'hombres/zapatillas/zapatilla2.jpg','masculino',4,1,'2026-06-15 05:06:16','2026-07-01 01:02:22',NULL),
 (70,'Zapatilla deportiva hombre 3','Zapatilla deportiva masculina',25000.00,10,'hombres/zapatillas/zapatilla3.jpg','masculino',4,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
 (71,'Zapatilla deportiva hombre 4','Zapatilla deportiva masculina',25000.00,10,'hombres/zapatillas/zapatilla4.jpg','masculino',4,1,'2026-06-15 05:06:16','2026-06-15 05:06:16',NULL),
-(72,'Zapatillas deportivas Nike 05','zapatillas para correr',90000.00,3,'zapatilla1.jpg','femenino',4,1,'2026-06-17 22:43:54','2026-06-17 22:44:38','2026-06-17 22:44:38');
+(72,'Zapatillas deportivas Nike 05','zapatillas para correr',90000.00,3,'zapatilla1.jpg','femenino',4,1,'2026-06-17 22:43:54','2026-06-17 22:44:38','2026-06-17 22:44:38'),
+(73,'conjunto deportivo mujer','conjunto de dos piezas, mangas más calza larga. Marca nike',170000.00,5,'C:\\Users\\Jimena\\AppData\\Local\\Temp\\phpCA.tmp','femenino',3,1,'2026-06-30 23:07:49','2026-07-01 00:11:23','2026-07-01 00:11:23'),
+(74,'conjunto deportivo mujer','conjunto de dos piezas: top mangas cortas más calza larga, ambos en color celeste',200000.00,20,'mujeres/conjuntos/conjunto-deportivo-mujer.jpg','femenino',3,1,'2026-07-01 00:00:07','2026-07-01 00:00:07',NULL),
+(75,'conjunto urban','conjunto urbano de pantalon de tela de avion y top en tela de lycra 100% premium color blanco',280000.00,3,'mujeres/conjuntos/conjunto-urban.jpg','femenino',3,1,'2026-07-01 00:09:17','2026-07-01 00:09:17',NULL);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,9 +480,7 @@ CREATE TABLE `sessions` (
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
 INSERT INTO `sessions` VALUES
-('d37M9dOfRCyh3DeSSvnEfDCiyCQUL4pPZZIm05bq',2,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0','eyJfdG9rZW4iOiJpTktKUUJvWHdaUGVzOFNFc25oTWFDZ3hxWEtTWDFYMmk1eTcyUE1mIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2dydXBvMi50ZXN0XC9jbGllbnRlIiwicm91dGUiOiJjbGllbnRlLmRhc2hib2FyZCJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX0sImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjoyfQ==',1781742382),
-('s70r5Ax4UolFjDndMSq1S6cPyq103CA38kWayGW4',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Herd/1.28.0 Chrome/120.0.6099.291 Electron/28.2.5 Safari/537.36','eyJfdG9rZW4iOiJ3TzR1NzZKWkl2WjdFV0M1d2lEVmFIMXdKWjJHbmQ1MkFsMUczZEY2IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2dydXBvMi50ZXN0XC8/aGVyZD1wcmV2aWV3Iiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19',1781738732),
-('wg3e6l0KIcT8dnPloklPpIv2sZQ8jwQ6tTryrAPe',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJQMVY3cnFSWWhzTEJVcktZQVlxaXB0YnR2ZWhHSVZvV0UwaDRXcHNCIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvZ3J1cG8yLnRlc3RcL2xvZ2luIiwicm91dGUiOiJsb2dpbi5mb3JtIn19',1781745767);
+('yrjOYf8JBHkI7FGvEMSiXbLHZj0eV7HhtAAqdt8H',3,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJIenlySXRUM08yNjljSW1CMVVMc3VBbkxWVEt5eEJ1eERHTTRFRFVNIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvZ3J1cG8yLnRlc3RcL2FkbWluIiwicm91dGUiOiJhZG1pbi5kYXNoYm9hcmQifSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjN9',1782864285);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -534,7 +543,7 @@ CREATE TABLE `ventas_cabecera` (
   KEY `ventas_cabecera_forma_pago_id_foreign` (`forma_pago_id`),
   CONSTRAINT `ventas_cabecera_forma_pago_id_foreign` FOREIGN KEY (`forma_pago_id`) REFERENCES `forma_pagos` (`id`),
   CONSTRAINT `ventas_cabecera_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -557,7 +566,17 @@ INSERT INTO `ventas_cabecera` VALUES
 (11,'2026-06-17 22:50:44',2,1,'confirmado',24000.00,'2026-06-17 22:50:24','2026-06-17 22:50:44'),
 (12,'2026-06-18 03:33:20',2,2,'confirmado',55000.00,'2026-06-17 22:50:48','2026-06-18 03:33:20'),
 (13,'2026-06-18 04:10:49',2,1,'confirmado',30000.00,'2026-06-18 04:10:31','2026-06-18 04:10:49'),
-(14,NULL,2,NULL,'carrito',0.00,'2026-06-18 04:12:10','2026-06-18 04:12:10');
+(14,'2026-06-18 22:14:10',2,2,'confirmado',12000.00,'2026-06-18 04:12:10','2026-06-18 22:14:10'),
+(15,'2026-06-25 23:53:20',2,1,'confirmado',12000.00,'2026-06-18 22:51:01','2026-06-25 23:53:20'),
+(16,'2026-06-25 23:53:47',2,1,'confirmado',12000.00,'2026-06-25 23:53:25','2026-06-25 23:53:47'),
+(17,'2026-06-25 23:54:10',2,2,'confirmado',12000.00,'2026-06-25 23:53:51','2026-06-25 23:54:10'),
+(18,'2026-06-25 23:54:34',2,2,'confirmado',12000.00,'2026-06-25 23:54:14','2026-06-25 23:54:34'),
+(19,'2026-06-25 23:55:06',2,1,'confirmado',12000.00,'2026-06-25 23:54:38','2026-06-25 23:55:06'),
+(20,'2026-06-30 21:45:56',2,1,'confirmado',12000.00,'2026-06-25 23:55:09','2026-06-30 21:45:56'),
+(21,'2026-07-01 00:45:18',2,1,'confirmado',12000.00,'2026-06-30 21:46:51','2026-07-01 00:45:18'),
+(22,'2026-07-01 01:02:22',2,2,'confirmado',25000.00,'2026-07-01 01:01:50','2026-07-01 01:02:22'),
+(23,'2026-07-01 01:39:31',2,1,'confirmado',12000.00,'2026-07-01 01:39:03','2026-07-01 01:39:31'),
+(24,NULL,2,NULL,'carrito',0.00,'2026-07-01 01:41:06','2026-07-01 01:41:06');
 /*!40000 ALTER TABLE `ventas_cabecera` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -582,7 +601,7 @@ CREATE TABLE `ventas_detalle` (
   KEY `ventas_detalle_producto_id_foreign` (`producto_id`),
   CONSTRAINT `ventas_detalle_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`),
   CONSTRAINT `ventas_detalle_venta_id_foreign` FOREIGN KEY (`venta_id`) REFERENCES `ventas_cabecera` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -610,7 +629,17 @@ INSERT INTO `ventas_detalle` VALUES
 (17,12,18,1,18000.00,18000.00,'2026-06-18 03:32:55','2026-06-18 03:32:55'),
 (18,12,32,1,25000.00,25000.00,'2026-06-18 03:33:04','2026-06-18 03:33:04'),
 (19,13,52,1,15000.00,15000.00,'2026-06-18 04:10:31','2026-06-18 04:10:31'),
-(20,13,53,1,15000.00,15000.00,'2026-06-18 04:10:38','2026-06-18 04:10:38');
+(20,13,53,1,15000.00,15000.00,'2026-06-18 04:10:38','2026-06-18 04:10:38'),
+(21,14,42,1,12000.00,12000.00,'2026-06-18 22:13:27','2026-06-18 22:13:27'),
+(22,15,2,1,12000.00,12000.00,'2026-06-25 23:53:09','2026-06-25 23:53:09'),
+(23,16,39,1,12000.00,12000.00,'2026-06-25 23:53:37','2026-06-25 23:53:37'),
+(24,17,3,1,12000.00,12000.00,'2026-06-25 23:54:00','2026-06-25 23:54:00'),
+(25,18,38,1,12000.00,12000.00,'2026-06-25 23:54:26','2026-06-25 23:54:26'),
+(26,19,3,1,12000.00,12000.00,'2026-06-25 23:54:54','2026-06-25 23:54:54'),
+(27,20,38,1,12000.00,12000.00,'2026-06-30 21:45:44','2026-06-30 21:45:44'),
+(28,21,36,1,12000.00,12000.00,'2026-07-01 00:42:03','2026-07-01 00:42:03'),
+(29,22,69,1,25000.00,25000.00,'2026-07-01 01:01:50','2026-07-01 01:01:50'),
+(30,23,37,1,12000.00,12000.00,'2026-07-01 01:39:03','2026-07-01 01:39:03');
 /*!40000 ALTER TABLE `ventas_detalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -627,4 +656,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-06-17 23:57:46
+-- Dump completed on 2026-06-30 21:20:43
