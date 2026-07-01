@@ -43,15 +43,16 @@ class ProductoController extends Controller
         'url_imagen' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         'genero' => 'required|in:masculino,femenino,unisex',
         'categoria_id' => 'required|exists:categorias,id',
-        'activo' => 'required|boolean',
+        'activo' => 'nullable|boolean',
         ]);
 
         //crea una variable $datos
         $datos = $request->all();
+        $datos['activo'] = true;
 
         /*Luego hasFile() pregunta: ¿el usuario seleccionó una imágen?,
         si la seleccionó entra al if, sino continúa normalmente 
-        */
+        
         if ($request->hasFile('url_imagen')) {
 
             $archivo = $request->file('url_imagen');
@@ -60,10 +61,52 @@ class ProductoController extends Controller
             $nombreArchivo = $nombreProducto . '.' . $extension; //concatena el nombre que quedó con la extención. Ejemplo: remera-adidas-negra.png
 
         }
+        */
 
+            //Luego hasFile() pregunta: ¿el usuario seleccionó una imágen?,
+            //si la seleccionó entra al if, sino continúa normalmente 
+            if ($request->hasFile('url_imagen')) {
+
+            // Imagen seleccionada
+            $archivo = $request->file('url_imagen');
+
+            // Nombre del producto convertido en formato apto para archivo
+            $nombreProducto = Str::slug($request->nombre);
+
+            // jpg, png, webp...
+            $extension = $archivo->getClientOriginalExtension();
+
+            // Nombre final del archivo
+            $nombreArchivo = $nombreProducto . '.' . $extension;
+
+            // Buscar la categoría elegida
+            $categoria = Categoria::find($request->categoria_id);
+
+            // Convertir el género al nombre de la carpeta
+            $carpetaGenero = match ($request->genero) {
+                'masculino' => 'hombres',
+                'femenino' => 'mujeres',
+                default => 'unisex',
+            };
+
+            // Convertir la categoría en nombre de carpeta
+            $carpetaCategoria = Str::lower($categoria->descripcion);
+
+            // Ruta donde se guardará
+            $ruta = public_path(
+                "img/productos/$carpetaGenero/$carpetaCategoria"
+            );
+
+            // Mover la imagen
+            $archivo->move($ruta, $nombreArchivo);
+
+            // Guardar la ruta relativa en la base de datos
+            $datos['url_imagen'] =
+                "$carpetaGenero/$carpetaCategoria/$nombreArchivo";
+        }
 
         //luego guarda en la variable $request todos los datos validados
-        Producto::create($request->all());
+        Producto::create($datos);
 
         //redirige a la pagina de index para mostrar el mensaje "producto creador correctamente" si es que el registro se creo Y GUARDÓ correctamente.
         return redirect()

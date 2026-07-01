@@ -15,10 +15,12 @@ use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PerfilController;
 
+/*
 Route::get('/carrito', [CarritoController::class, 'index'])
     ->name('carrito.index');
 Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])
     ->name('carrito.agregar');
+*/
 
 /*Ruta para la vista de inicio de laravel*/
 Route::get('/', [HomeController::class, 'index']);
@@ -243,7 +245,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function(){
 
     Route::get('/usuarios/{usuario}/compras',
-    [UsuarioController::class,'compras'])
+    [UserController::class,'compras'])
     ->name('usuarios.compras');
 
 });

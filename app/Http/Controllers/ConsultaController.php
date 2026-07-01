@@ -54,7 +54,7 @@ public function responder(Request $request, Consulta $consulta)
         'respondidos'
     ));
 
-        return view('backend.admin.consultas', compact('consultas'));
+        //return view('backend.admin.consultas', compact('consultas'));
     }
 
     public function cambiarEstado(Request $request, Consulta $consulta)
