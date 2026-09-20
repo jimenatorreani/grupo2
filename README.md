@@ -33,7 +33,7 @@ El sistema también cuenta con un panel administrativo para la gestión integral
 
 ## Tecnologías
 
-- PHP 8.3
+- PHP 8.4
 - Laravel 13
 - MariaDB
 - SQL
@@ -109,7 +109,7 @@ php artisan migrate --seed
 ```bash
 npm run dev
 ```
-9. Iniciar la aplicacion:
+9. Iniciar la aplicación:
 
 ```bash
 php artisan serve
@@ -120,17 +120,18 @@ Para generar los archivos frontend para producción:
 npm run build
 ```
 
-Proyecto académico
+## Proyecto académico
 
 Proyecto desarrollado en equipo como parte de la formación universitaria en Sistemas de Información.
 
-Rama con la versión estable
+## Rama con la versión estable
 
 La versión funcional y recuperada del proyecto se encuentra en:
 
-estado-estable-luego-de-la-recuperacion
+`estado-estable-luego-de-la-recuperacion`
 
-Autores
+## Autores
 
 **Jimena Torreani**
+
 **Mauricio Lencinas**
